@@ -66,6 +66,7 @@ const authMiddleware = async (req, res, next) => {
 const formatUser = (user) => ({
   id: user._id.toString(),
   username: user.username,
+  phone: user.phone || null,
   hasProfile: user.hasProfile,
   profile: user.profile ? decryptProfile(user.profile) : null,
 });
@@ -89,7 +90,15 @@ app.post('/api/auth/register', async (req, res) => {
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
-    await users.insertOne({ username, passwordHash, hasProfile: false, profile: null, createdAt: new Date() });
+    await users.insertOne({
+      username,
+      phone,
+      passwordHash,
+      hasProfile: false,
+      profile: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
 
     return res.status(201).json({ message: 'Registration successful' });
   } catch (error) {
@@ -151,7 +160,20 @@ app.put('/api/auth/profile', authMiddleware, async (req, res) => {
     const db = client.db(dbName);
     const users = db.collection('users');
     const profile = encryptProfile(profileData);
-    await users.updateOne({ _id: new ObjectId(req.userId) }, { $set: { profile, hasProfile: true } });
+    const flattenedProfile = { ...profileData };
+
+    await users.updateOne(
+      { _id: new ObjectId(req.userId) },
+      {
+        $set: {
+          ...flattenedProfile,
+          profile,
+          hasProfile: true,
+          updatedAt: new Date(),
+        },
+      }
+    );
+
     const user = await users.findOne({ _id: new ObjectId(req.userId) });
     return res.json({ user: formatUser(user) });
   } catch (error) {

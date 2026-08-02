@@ -1,24 +1,72 @@
-import { useMemo, useState } from 'react';
-import schemes from '../data/schemes';
+import { useEffect, useMemo, useState } from 'react';
 import SchemeCard from '../components/SchemeCard';
 import Sidebar from '../components/Sidebar';
 import FilterPanel from '../components/FilterPanel';
+import apiClient from '../utils/api';
 import { getStoredUser } from '../utils/auth';
+
+const normalizeRecommendedScheme = (scheme, index) => {
+  const name = scheme.schemeName || scheme.name || `Recommended Scheme ${index + 1}`;
+  const description = Array.isArray(scheme.explanation) && scheme.explanation.length
+    ? scheme.explanation.join(' • ')
+    : scheme.description || 'Recommended based on your profile and eligibility.';
+
+  return {
+    id: scheme.sourceUrl || scheme.id || `${name}-${index}`,
+    name,
+    category: scheme.category || 'Recommended',
+    description,
+    benefits: scheme.benefits || (Array.isArray(scheme.explanation) ? scheme.explanation.slice(0, 2).join(' • ') : 'Recommended for your profile'),
+    whyEligible: scheme.matchedRules?.length ? scheme.matchedRules.join(', ') : 'Matches your profile details',
+    tags: Array.isArray(scheme.matchedRules) ? scheme.matchedRules.map((rule) => rule.toLowerCase()) : ['recommended'],
+    matchScore: Math.round((Number(scheme.finalScore || 0) || 0) * 100),
+    finalScore: Number(scheme.finalScore || 0),
+    ruleScore: Number(scheme.ruleScore || 0),
+    decisionTreeScore: Number(scheme.decisionTreeScore || 0),
+    sourceUrl: scheme.sourceUrl || scheme.source_url || '',
+  };
+};
 
 function DashboardPage({ showToast }) {
   const user = useMemo(() => getStoredUser(), []);
   const [query, setQuery] = useState('');
   const [filters, setFilters] = useState({ category: '', gender: '', income: '', occupation: '', special: '' });
+  const [recommendedSchemes, setRecommendedSchemes] = useState([]);
+  const [loadingRecommendations, setLoadingRecommendations] = useState(false);
 
-  const filteredSchemes = schemes.filter((scheme) => {
-    const matchesQuery = query ? scheme.name.toLowerCase().includes(query.toLowerCase()) || scheme.description.toLowerCase().includes(query.toLowerCase()) : true;
-    const matchesCategory = filters.category ? scheme.category === filters.category : true;
-    const matchesSpecial = filters.special ? scheme.tags.includes(filters.special.toLowerCase()) : true;
+  useEffect(() => {
+    const loadRecommendedSchemes = async () => {
+      if (!user?.id) return;
+
+      setLoadingRecommendations(true);
+      try {
+        const response = await apiClient.get(`/recommend/${user.id}`);
+        const apiSchemes = response.data?.recommendedSchemes || [];
+        setRecommendedSchemes(apiSchemes.map(normalizeRecommendedScheme));
+      } catch (error) {
+        console.error('Unable to load recommendations:', error);
+        setRecommendedSchemes([]);
+      } finally {
+        setLoadingRecommendations(false);
+      }
+    };
+
+    loadRecommendedSchemes();
+  }, [user?.id]);
+
+  const activeSchemes = recommendedSchemes;
+
+  const filteredSchemes = activeSchemes.filter((scheme) => {
+    const matchesQuery = query
+      ? (scheme.name || '').toLowerCase().includes(query.toLowerCase()) || (scheme.description || '').toLowerCase().includes(query.toLowerCase())
+      : true;
+    const matchesCategory = filters.category ? (scheme.category || '').toLowerCase() === filters.category.toLowerCase() : true;
+    const matchesSpecial = filters.special ? (scheme.tags || []).includes(filters.special.toLowerCase()) : true;
     return matchesQuery && matchesCategory && matchesSpecial;
   });
 
-  const topRecommended = filteredSchemes.filter((scheme) => scheme.matchScore >= 80);
-  const eligibleSchemes = filteredSchemes.filter((scheme) => scheme.matchScore >= 60 && scheme.matchScore < 80);
+  const topRecommended = filteredSchemes.filter((scheme) => (scheme.matchScore || 0) >= 80);
+  const eligibleSchemes = filteredSchemes.filter((scheme) => (scheme.matchScore || 0) >= 60 && (scheme.matchScore || 0) < 80);
 
   return (
     <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 lg:grid-cols-[280px_1fr]">
@@ -29,7 +77,9 @@ function DashboardPage({ showToast }) {
             <div>
               <p className="text-sm uppercase tracking-[0.2em] text-primary">Dashboard</p>
               <h1 className="mt-2 text-3xl font-semibold text-slate-900">Your recommended schemes</h1>
-              <p className="text-sm text-slate-500">Ready for you, {user?.name || 'applicant'}. Use search and filters to refine suggested programmes.</p>
+              <p className="text-sm text-slate-500">
+                {loadingRecommendations ? 'Loading your personalised recommendations...' : `Ready for you, ${user?.name || 'applicant'}. Use search and filters to refine suggested programmes.`}
+              </p>
             </div>
             <div className="rounded-3xl bg-slate-100 px-5 py-4 text-sm text-slate-700">
               Matched schemes: {filteredSchemes.length}
@@ -94,7 +144,7 @@ function DashboardStat({ label, value, icon, color = 'primary' }) {
   );
 }
 
-function SchemeSection({ title, schemes, emptyMessage }) {
+function SchemeSection({ title, schemes, emptyMessage, showToast }) {
   return (
     <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
       <h2 className="text-2xl font-semibold text-slate-900">{title}</h2>
@@ -105,7 +155,7 @@ function SchemeSection({ title, schemes, emptyMessage }) {
       ) : (
         <div className="mt-6 space-y-5">
           {schemes.map((scheme) => (
-            <SchemeCard key={scheme.id} scheme={scheme} />
+            <SchemeCard key={scheme.id || scheme.name} scheme={scheme} showToast={showToast} />
           ))}
         </div>
       )}
