@@ -10,7 +10,7 @@ apiClient.interceptors.request.use((config) => {
   if (!config.headers) {
     config.headers = {};
   }
-  const token = localStorage.getItem(AUTH_TOKEN_KEY);
+  const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

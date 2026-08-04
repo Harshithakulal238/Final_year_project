@@ -10,10 +10,37 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+app.use((req, res, next) => {
+  // Accept all local frontend ports during development. Vite chooses the next
+  // free port when its default is occupied (for example, 5174 instead of 5173).
+  const allowedOrigins = (process.env.FRONTEND_ORIGIN || 'http://localhost:3000,http://localhost:5173').split(',');
+  const origin = req.headers.origin;
+  const isLocalDevelopmentOrigin = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || '');
+  if (origin && (allowedOrigins.includes(origin) || isLocalDevelopmentOrigin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
 
 function toNumber(value, defaultValue = 0) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : defaultValue;
+}
+
+function ageFromDob(dob) {
+  if (!dob) return undefined;
+  const date = new Date(dob);
+  if (Number.isNaN(date.getTime())) return undefined;
+  const today = new Date();
+  let age = today.getFullYear() - date.getFullYear();
+  const birthdayPending =
+    today.getMonth() < date.getMonth() ||
+    (today.getMonth() === date.getMonth() && today.getDate() < date.getDate());
+  if (birthdayPending) age -= 1;
+  return age >= 0 ? age : undefined;
 }
 
 function normalizeUser(user) {
@@ -22,15 +49,15 @@ function normalizeUser(user) {
   return {
     _id: user._id,
     name: user.name || user.username || 'User',
-    age: user.age,
+    age: user.age ?? ageFromDob(user.dob),
     gender: user.gender,
     income: user.income,
     casteCategory: user.casteCategory || user.caste,
     employmentType: user.employmentType || user.occupation,
-    district: user.district,
+    district: user.district || user.location?.district,
     qualification: user.qualification || user.education,
-    specialConditions: user.specialConditions || [],
-    studentStatus: user.studentStatus,
+    specialConditions: user.specialConditions || user.conditions || [],
+    studentStatus: user.studentStatus || (user.occupation === 'student' ? 'yes' : undefined),
     phone: user.phone,
     username: user.username,
   };
@@ -101,18 +128,35 @@ app.get('/api/recommend/:userId', async (req, res) => {
     }
 
     const schemes = await schemeCollection.find({}).toArray();
+    console.log("==================================");
+    console.log("Total schemes:", schemes.length);
+    console.log("First scheme:", schemes[0]?.scheme_name);
+    console.log("==================================");
     const normalizedUser = normalizeUser(user);
-
+    console.log("Normalized User:");
+    console.log(normalizedUser);
     const eligibleSchemes = [];
     for (const scheme of schemes) {
+
       const ruleEvaluation = evaluateSchemeEligibility(normalizedUser, scheme);
+
+      console.log(
+        "Scheme:",
+        scheme.scheme_name,
+        "| Eligible:",
+        ruleEvaluation.eligible,
+        "| Failed:",
+        ruleEvaluation.failedRules
+      );
+
       if (ruleEvaluation.eligible) {
         eligibleSchemes.push({
-          ...scheme,
-          ruleEvaluation,
+            ...scheme,
+            ruleEvaluation,
         });
       }
     }
+    console.log("Eligible schemes:", eligibleSchemes.length);
 
     if (!eligibleSchemes.length) {
       return res.json({

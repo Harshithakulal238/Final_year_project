@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 const mongoUri = process.env.MONGODB_URI;
 const jwtSecret = process.env.JWT_SECRET || 'change_this_secret';
 const encryptionKey = process.env.ENCRYPTION_KEY || 'change_this_to_a_32_byte_key';
-const dbName = process.env.DB_NAME || 'karnataka_scheme_enhance';
+const dbName = process.env.DB_NAME || 'karnataka_schemes';
 
 if (!mongoUri) {
   console.error('Missing MONGODB_URI in environment');
