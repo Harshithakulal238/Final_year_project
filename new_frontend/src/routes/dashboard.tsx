@@ -1,9 +1,10 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
-import { useSession } from "@/lib/profile-store";
-import { confidenceScore, evaluateAll, getAge } from "@/lib/eligibility";
+import { getCurrentUser, useSession } from "@/lib/profile-store";
+import { confidenceScore, getAge } from "@/lib/eligibility";
+import { getRecommendations, type Recommendation } from "@/lib/api/recommendations";
 import {
   ArrowRight,
   Compass,
@@ -13,6 +14,7 @@ import {
   UserCircle2,
   MapPin,
   CheckCircle2,
+  ExternalLink,
 } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
@@ -35,22 +37,35 @@ function DashboardPage() {
   const navigate = useNavigate();
   const { profile, hydrated, isAuthed } = useSession();
   const { t } = useLanguage();
+  const [topPicks, setTopPicks] = useState<Recommendation[]>([]);
+  const [topPicksLoaded, setTopPicksLoaded] = useState(false);
 
   useEffect(() => {
     if (hydrated && !isAuthed) navigate({ to: "/login" });
   }, [hydrated, isAuthed, navigate]);
 
-  const evalResult = useMemo(
-    () => (profile && profile.dob ? evaluateAll(profile) : null),
-    [profile],
-  );
   const conf = useMemo(() => (profile ? confidenceScore(profile) : null), [profile]);
+
+  useEffect(() => {
+    if (!hydrated || !isAuthed || !profile) return;
+    const user = getCurrentUser();
+    if (!user?.id) return;
+
+    setTopPicksLoaded(false);
+    void getRecommendations(user.id)
+      .then((response) => setTopPicks((response.recommendedSchemes ?? []).slice(0, 3)))
+      .catch((error) => {
+        console.error("Unable to load dashboard top picks:", error);
+        setTopPicks([]);
+      })
+      .finally(() => setTopPicksLoaded(true));
+  }, [hydrated, isAuthed, profile]);
 
   if (!hydrated || !profile) return null;
 
   const firstName = (profile.name || "friend").split(" ")[0];
-  const eligibleCount = evalResult?.eligible.length ?? 0;
-  const topPick = evalResult?.eligible[0];
+  const eligibleCount = topPicks.length;
+  const topPick = topPicks[0] ? { score: Math.round(topPicks[0].finalScore * 100) } : null;
   const profileComplete = !!(profile.name && profile.dob && profile.occupation);
   const age = profile.dob ? getAge(profile.dob) : 0;
 
@@ -85,8 +100,8 @@ function DashboardPage() {
             <p className="mt-3 max-w-xl text-sm text-teal-100/90 sm:text-base">
               {profileComplete
                 ? t("dashboard.matchCount", {
-                    count: eligibleCount,
-                    suffix: eligibleCount === 1 ? "" : "s",
+                    count: topPicks.length,
+                    suffix: topPicks.length === 1 ? "" : "s",
                   })
                 : t("dashboard.completeProfilePrompt")}
             </p>
@@ -152,41 +167,34 @@ function DashboardPage() {
           </div>
         </section>
 
-        {/* Snapshot */}
+        {/* Backend-ranked Top Picks and profile snapshot */}
         <section className="mt-8 grid gap-4 lg:grid-cols-3">
-          {topPick && (
-            <div className="lg:col-span-2 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-medium text-amber-900">
-                  <Sparkles className="h-3.5 w-3.5" /> {t("dashboard.topPickBadge")}
-                </span>
-                <span className="text-xs text-slate-500">{topPick.scheme.category}</span>
-              </div>
-              <h3 className="mt-3 text-xl font-semibold text-slate-900">{topPick.scheme.name}</h3>
-              <p className="mt-1 text-sm text-slate-600">{topPick.scheme.description}</p>
-              <p className="mt-3 rounded-lg bg-teal-50 px-3 py-2 text-sm text-teal-900">
-                <span className="font-medium">{t("dashboard.why")}</span>
-                {topPick.explanation}
-              </p>
-              <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
-                <div>
-                  <div className="text-sm font-medium text-slate-900">
-                    {topPick.scheme.benefits}
-                  </div>
-                  <div className="text-xs text-slate-500">
-                    {t("dashboard.matchScoreLabel", { score: topPick.score })}
-                  </div>
-                </div>
-                <Link
-                  to="/scheme/$id"
-                  params={{ id: topPick.scheme.id }}
-                  className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline"
-                >
-                  {t("dashboard.viewDetails")} <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+          <div className="lg:col-span-2 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center gap-1.5 text-sm font-semibold text-slate-900">
+              <Sparkles className="h-4 w-4 text-amber-600" /> {t("dashboard.topPickBadge")}
             </div>
-          )}
+            {!topPicksLoaded ? (
+              <p className="mt-4 text-sm text-slate-600">Loading backend recommendations…</p>
+            ) : topPicks.length === 0 ? (
+              <p className="mt-4 text-sm text-slate-600">No eligible backend recommendations are available for this profile.</p>
+            ) : (
+              <div className="mt-4 grid gap-3">
+                {topPicks.map((recommendation, index) => (
+                  <article key={`${recommendation.sourceUrl}-${index}`} className="rounded-xl bg-slate-50 p-4">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-teal-700">#{index + 1} · {Math.round(recommendation.finalScore * 100)}% match</p>
+                        <h3 className="mt-1 font-semibold text-slate-900">{recommendation.schemeName}</h3>
+                        <p className="mt-1 text-xs text-slate-600">Matched fields: {recommendation.matchedRules.join(", ") || "None"}</p>
+                        <p className="mt-2 text-sm leading-5 text-slate-600"><span className="font-semibold text-slate-800">About this Scheme: </span>{aboutScheme(recommendation.explanation)}</p>
+                      </div>
+                      {recommendation.sourceUrl && <a href={recommendation.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline">Details <ExternalLink className="h-3.5 w-3.5" /></a>}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
 
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-500">
@@ -228,6 +236,11 @@ function MiniStat({ label, value, icon }: { label: string; value: string; icon: 
       <div className="mt-1.5 text-2xl font-bold">{value}</div>
     </div>
   );
+}
+
+function aboutScheme(explanation: string[]) {
+  const purpose = explanation.find((line) => line.startsWith("What is this scheme?"));
+  return purpose ? purpose.replace("What is this scheme?", "").trim() : "A description was not captured in the scheme data.";
 }
 
 function ActionCard({

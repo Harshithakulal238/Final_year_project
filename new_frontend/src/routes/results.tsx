@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser, loadProfile } from "@/lib/profile-store";
-import { getRecommendations, type Recommendation } from "@/lib/api/recommendations";
+import { getRecommendations, getTfIdfRecommendations, type Recommendation, type TfIdfRecommendation, type TfIdfStatistics } from "@/lib/api/recommendations";
 
 export const Route = createFileRoute("/results")({
   component: ResultsPage,
@@ -15,10 +15,13 @@ export const Route = createFileRoute("/results")({
 function ResultsPage() {
   const navigate = useNavigate();
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [tfIdfRecommendations, setTfIdfRecommendations] = useState<TfIdfRecommendation[]>([]);
+  const [tfIdfStatistics, setTfIdfStatistics] = useState<TfIdfStatistics | null>(null);
+  const [activeTab, setActiveTab] = useState<"rule" | "tfidf">("rule");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const loadRecommendations = async () => {
+  const loadRecommendations = async (tab = activeTab) => {
     const user = getCurrentUser();
     if (!user?.id || !loadProfile()) {
       navigate({ to: "/login" });
@@ -28,8 +31,14 @@ function ResultsPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await getRecommendations(user.id);
-      setRecommendations(response.recommendedSchemes ?? []);
+      if (tab === "rule") {
+        const response = await getRecommendations(user.id);
+        setRecommendations(response.recommendedSchemes ?? []);
+      } else {
+        const response = await getTfIdfRecommendations(user.id);
+        setTfIdfRecommendations(response.recommendedSchemes ?? []);
+        setTfIdfStatistics(response.statistics);
+      }
     } catch (requestError) {
       console.error("Unable to load backend recommendations:", requestError);
       setError(requestError instanceof Error ? requestError.message : "Unable to contact the recommendation server.");
@@ -39,8 +48,13 @@ function ResultsPage() {
   };
 
   useEffect(() => {
-    void loadRecommendations();
+    void loadRecommendations("rule");
   }, []);
+
+  const selectTab = (tab: "rule" | "tfidf") => {
+    setActiveTab(tab);
+    if (tab === "tfidf" && !tfIdfStatistics) void loadRecommendations(tab);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -54,7 +68,7 @@ function ResultsPage() {
           </div>
           <div className="flex gap-2">
             <Link to="/profile"><Button variant="outline">Edit profile</Button></Link>
-            <Button onClick={() => void loadRecommendations()} disabled={loading}>
+            <Button onClick={() => void loadRecommendations(activeTab)} disabled={loading}>
               <RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} /> Refresh
             </Button>
           </div>
@@ -69,24 +83,34 @@ function ResultsPage() {
           </div>
         )}
 
-        {!loading && !error && recommendations.length === 0 && (
+        <div className="mt-8 flex gap-2 border-b border-slate-200">
+          <Button variant={activeTab === "rule" ? "default" : "ghost"} onClick={() => selectTab("rule")}>
+            Rule-Based Recommendations
+          </Button>
+          <Button variant={activeTab === "tfidf" ? "default" : "ghost"} onClick={() => selectTab("tfidf")}>
+            TF-IDF Recommendations
+          </Button>
+        </div>
+
+        {!loading && !error && activeTab === "rule" && recommendations.length === 0 && (
           <div className="mt-8 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-600">
             No eligible schemes were returned for the saved profile. Update your profile and try again.
           </div>
         )}
 
-        <div className="mt-8 grid gap-4">
+        {activeTab === "rule" && <div className="mt-8 grid gap-4">
           {recommendations.map((recommendation, index) => (
             <article key={`${recommendation.sourceUrl}-${index}`} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <h2 className="text-xl font-semibold text-slate-950">{recommendation.schemeName}</h2>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{recommendation.explanation.join(" ")}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  <p className="mt-4 text-sm font-semibold text-slate-800">Matched fields:</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
                     {recommendation.matchedRules.filter((rule) => rule !== "None").map((rule) => (
                       <Badge key={rule} className="bg-teal-50 text-teal-800 hover:bg-teal-50"><CheckCircle2 className="mr-1 h-3.5 w-3.5" />{rule}</Badge>
                     ))}
                   </div>
+                  <p className="mt-4 text-sm leading-6 text-slate-600"><span className="font-semibold text-slate-800">About this Scheme: </span>{aboutScheme(recommendation.explanation)}</p>
                 </div>
                 <div className="rounded-xl bg-teal-50 px-4 py-3 text-center text-teal-900">
                   <div className="text-2xl font-bold">{Math.round(recommendation.finalScore * 100)}%</div>
@@ -100,8 +124,39 @@ function ResultsPage() {
               )}
             </article>
           ))}
-        </div>
+        </div>}
+
+        {!loading && !error && activeTab === "tfidf" && tfIdfRecommendations.length === 0 && (
+          <div className="mt-8 rounded-xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-600">
+            No TF-IDF matches could be calculated from the structured profile and scheme fields.
+          </div>
+        )}
+
+        {activeTab === "tfidf" && <div className="mt-8 grid gap-4">
+          {tfIdfRecommendations.map((recommendation) => (
+            <article key={recommendation.schemeId} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-teal-700">Rank #{recommendation.rank}</p>
+                  <h2 className="mt-1 text-xl font-semibold text-slate-950">{recommendation.schemeName}</h2>
+                  <p className="mt-2 text-sm text-slate-600">Cosine similarity: {recommendation.similarityScore.toFixed(4)}</p>
+                </div>
+                <div className="rounded-xl bg-teal-50 px-4 py-3 text-center text-teal-900">
+                  <div className="text-2xl font-bold">{recommendation.similarityPercent}%</div>
+                  <div className="text-xs font-medium uppercase tracking-wide">Similarity</div>
+                </div>
+              </div>
+              {recommendation.sourceUrl && <a href={recommendation.sourceUrl} target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline">View official scheme details <ExternalLink className="h-4 w-4" /></a>}
+            </article>
+          ))}
+          {tfIdfStatistics && <p className="text-xs text-slate-500">{tfIdfStatistics.users} users · {tfIdfStatistics.schemes} schemes · {tfIdfStatistics.userSchemeComparisons} comparisons · vocabulary/vector dimensions {tfIdfStatistics.vocabularySize} · {tfIdfStatistics.processingTimeMs} ms. Precision@K, Recall@K and F1@K are unavailable because no labelled relevance data exists.</p>}
+        </div>}
       </main>
     </div>
   );
+}
+
+function aboutScheme(explanation: string[]) {
+  const purpose = explanation.find((line) => line.startsWith("What is this scheme?"));
+  return purpose ? purpose.replace("What is this scheme?", "").trim() : "A description was not captured in the scheme data.";
 }
