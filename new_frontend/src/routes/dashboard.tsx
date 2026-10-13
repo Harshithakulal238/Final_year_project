@@ -86,7 +86,8 @@ function DashboardPage() {
                 </>
               ) : (
                 <>
-                  <UserCircle2 className="h-3.5 w-3.5 text-amber-300" /> {t("dashboard.guestBadge")}
+                  <ShieldCheck className="h-3.5 w-3.5 text-amber-300" />{" "}
+                 
                 </>
               )}
             </div>
@@ -133,7 +134,7 @@ function DashboardPage() {
           </h2>
           <div className="mt-3 grid gap-4 sm:grid-cols-3">
             <ActionCard
-              to="/results"
+              to="/allschemes"
               tone="teal"
               title={t("dashboard.findSchemesTitle")}
               body={t("dashboard.findSchemesBody")}
@@ -185,6 +186,7 @@ function DashboardPage() {
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-wider text-teal-700">#{index + 1} · {Math.round(recommendation.finalScore * 100)}% match</p>
                         <h3 className="mt-1 font-semibold text-slate-900">{recommendation.schemeName}</h3>
+                        <p className="mt-1 text-xs text-slate-600">{recommendation.explanation.find((line) => line.startsWith("Why are you eligible?"))?.replace("Why are you eligible?", "").trim()}</p>
                         <p className="mt-1 text-xs text-slate-600">Matched fields: {recommendation.matchedRules.join(", ") || "None"}</p>
                         <p className="mt-2 text-sm leading-5 text-slate-600"><span className="font-semibold text-slate-800">About this Scheme: </span>{aboutScheme(recommendation.explanation)}</p>
                       </div>
@@ -251,7 +253,7 @@ function ActionCard({
   cta,
   tone,
 }: {
-  to: "/results" | "/profile";
+  to: "/allschemes" | "/results" | "/profile";
   title: string;
   body: string;
   icon: React.ReactNode;

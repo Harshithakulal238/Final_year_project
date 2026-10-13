@@ -1,0 +1,31 @@
+{
+  "_input_hash": "b5459e16d29703d2151155feefcf7a2b355b7d6b69aba63dc6cf3f28998ab23b",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The Karnataka Bhagya Lakshmi Scheme provides financial assistance to girl children from below‑poverty‑line families to promote their birth and improve their status in the family and society.",
+    "eligibility": "Girl’s birth must be registered within one year of birth; the girl must not be engaged in child labour; benefits are available to BPL families with up to two female children; the girl must be immunized under the health department program; she must be born after 31 March 2006 in a BPL family; she must have completed the eighth grade to receive the maturity amount; she cannot be married before turning 18 years old.",
+    "age_min": null,
+    "age_max": null,
+    "gender": "female",
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "BPL"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3203,
+      "reset_tokens_seconds": 35.977
+    },
+    "_verified_at": "2026-09-13T08:04:34.194442+00:00"
+  }
+}

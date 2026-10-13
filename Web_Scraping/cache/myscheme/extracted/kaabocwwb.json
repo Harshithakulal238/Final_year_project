@@ -1,0 +1,29 @@
+{
+  "_input_hash": "bc2c9a69a50c8c8b8b6b0495e4100d094fca0b1e1447d798dbbc109189dd042d",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "Accident Assistance is a welfare scheme for registered construction workers of the Building and Other Construction Workers Welfare Board in Karnataka, providing compensation from both the employer and the Board when a worker suffers an accident during employment.",
+    "eligibility": "The applicant must be a registered building/construction worker (unorganised worker) aged at least 18 years, who has engaged in building and construction work for at least 90 days in a year, and the accident must occur during the course of employment or outside of work.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4872,
+      "reset_tokens_seconds": 23.46
+    },
+    "_verified_at": "2026-09-13T08:01:58.179737+00:00"
+  }
+}

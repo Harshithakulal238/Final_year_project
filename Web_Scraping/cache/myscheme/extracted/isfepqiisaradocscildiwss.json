@@ -1,0 +1,29 @@
+{
+  "_input_hash": "c3a28e88c79142e435d700ced1f40015754e40f1d6eaa27a1f9724bb87cf5117",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme aims to motivate small cardamom growers to increase irrigated area and improve productivity and quality by constructing water storage structures. It is implemented under the Integrated Scheme for Export Promotion & Quality Improvement in Spices and Research and Development of Cardamom.",
+    "eligibility": "The applicant must be a small cardamom grower from Kerala, Tamil Nadu or Karnataka, holding land of 0.10 to 8 hectares, and must undertake irrigation or land development by constructing water storage structures that do not obstruct natural water flow or cause objections, and must not have previously availed this benefit.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "farmer",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4540,
+      "reset_tokens_seconds": 25.95
+    },
+    "_verified_at": "2026-09-13T08:11:43.908733+00:00"
+  }
+}

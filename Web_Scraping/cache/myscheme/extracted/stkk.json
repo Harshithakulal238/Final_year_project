@@ -1,0 +1,29 @@
+{
+  "_input_hash": "683837632f8c3613fb586375d1cae57eb4c044e3bea607aa445fe7cff09f8261",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides toolkits to construction workers who have completed skill upgradation training in trades such as masonry, electrical, and plumbing, aiming to improve their employability.",
+    "eligibility": "The applicant should be a registered construction worker under the Andhra Pradesh Building and Other Construction Workers Welfare Board.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "labourer",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3117,
+      "reset_tokens_seconds": 36.622
+    },
+    "_verified_at": "2026-09-13T08:08:03.073916+00:00"
+  }
+}

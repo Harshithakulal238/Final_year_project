@@ -1,0 +1,31 @@
+{
+  "_input_hash": "e9838fca1f20de820631884945f4b6cce9ead0c776e39e0920782c2278c0a2c5",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a subsidy of up to 50% of the unit cost, capped at ₹2,00,000, to minority women self‑help groups for self‑employment activities, aiming to promote economic self‑reliance.",
+    "eligibility": "Women belonging to a minority community, permanent Karnataka residents, aged 18‑55, with family income not exceeding ₹6,00,000, forming an SHG of 10‑20 women, registered with the Deputy Registrar, only one member per family, not government employees, not having received any loan or subsidy from the corporation in the last 5 years, operational for at least 6 months, holding regular monthly meetings, and maintaining bookkeeping records.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": "female",
+    "income_limit": 600000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "Minority"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2549,
+      "reset_tokens_seconds": 40.882
+    },
+    "_verified_at": "2026-09-13T08:08:22.595823+00:00"
+  }
+}

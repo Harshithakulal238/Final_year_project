@@ -1,0 +1,29 @@
+{
+  "_input_hash": "ad85ff297af809a55017d0020862c774fe26bc13317f5d1b9eca1dcb9c8baccd",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides institutional credit for capital investments at reasonable interest rates to new and existing profit‑making micro and small manufacturing enterprises and manufacturing‑allied activity enterprises, and is implemented through the Karnataka State Financial Corporation (KSFC).",
+    "eligibility": "Enterprises promoted by all categories of borrowers, including proprietary concerns, partnership firms, companies and other legal entities, are eligible. The scheme applies to new investments in building, plant and machinery directly involved in production for both new and existing enterprises undertaking expansion, diversification, modernization or technology up‑gradation. Applicants must not purchase land from KIADB/KSSIDC or other government agencies, and must not have already received interest subsidy under any other Karnataka or central government scheme. The enterprise must be a profit‑making micro or small manufacturing unit as defined by the scheme.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2858,
+      "reset_tokens_seconds": 38.565
+    },
+    "_verified_at": "2026-09-13T07:54:14.094214+00:00"
+  }
+}

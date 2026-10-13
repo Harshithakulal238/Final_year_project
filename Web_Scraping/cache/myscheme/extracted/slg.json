@@ -1,0 +1,32 @@
+{
+  "_input_hash": "687bee05b1246ddec0bce7ecfbc105a75f299bbcefde54ac97eafb1386364072",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a monthly stipend of Rs 5,000 for four years to law graduates from SC/ST communities who are residents of Karnataka, to help them practice law and undergo training under senior advocates.",
+    "eligibility": "Applicant must be a resident of Karnataka, belong to the SC/ST community, have a family income not exceeding Rs 2 lakh per annum, be at most 40 years old, hold a law degree from a recognized university, and have completed a 3‑year or 5‑year law course.",
+    "age_min": null,
+    "age_max": 40,
+    "gender": null,
+    "income_limit": 200000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC",
+      "ST"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": "Bachelor's Degree",
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4239,
+      "reset_tokens_seconds": 28.207
+    },
+    "_verified_at": "2026-09-13T07:54:55.795106+00:00"
+  }
+}

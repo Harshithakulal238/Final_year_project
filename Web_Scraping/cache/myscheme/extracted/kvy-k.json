@@ -1,0 +1,29 @@
+{
+  "_input_hash": "e4bddde4630e7980d3781a62ad07e1ac24728dbb4497c05a2d9ec36beff8f17d",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The Kaimagga Vikasa Yojana, launched by the Department of Handloom & Textiles, Government of Karnataka, aims to sustain and develop handloom weaving skills of existing weavers and attract young talent, thereby preserving Karnataka's rich cultural heritage of handloom weaving.",
+    "eligibility": "The weaver must be a member of a Handloom Weaver Co-operative Society, Handloom Association/Organisation or Karnataka Development Corporation, reside in their own or rented house, hold a Weaver's Identity Card, be a traditional weaver practising handloom weaving, or a young man or woman who has completed handloom weaving training under any government scheme and possesses the relevant certificate. For purchase of a warping machine, the weaver must have a certificate of experience in washing and adequate space to install the machine.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4058,
+      "reset_tokens_seconds": 29.565
+    },
+    "_verified_at": "2026-09-13T07:59:29.301164+00:00"
+  }
+}

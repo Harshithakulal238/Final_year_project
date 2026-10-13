@@ -1,0 +1,29 @@
+{
+  "_input_hash": "d4cd0db808b379140ab8bfbc13b452f00380db010ccce1401e151e08091af843",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance in the form of a loan and subsidy to religious minority individuals in Karnataka whose houses or shops have been destroyed by natural calamities or communal violence.",
+    "eligibility": "The applicant must belong to the religious minority category of Karnataka, be a permanent resident of the state, be aged between 18 and 55 years, have a family income not exceeding ₹8,00,000 per year, have no family members employed in the Central or State Government, and must not have availed a loan from Karnataka Minorities Development Corporation in the last five years (except the Arivu Education Loan Scheme).",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": 800000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4014,
+      "reset_tokens_seconds": 29.895
+    },
+    "_verified_at": "2026-09-13T08:02:15.782357+00:00"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "_input_hash": "38c064bf44c56e0c94bd4e23f0273877cdce67db7fca4ba3e0190473361bea35",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "A relief scheme launched in 2020 to provide financial support to destitute weavers of Karnataka engaged in the handloom and textile industry whose livelihoods were affected by the Covid pandemic.",
+    "eligibility": "The beneficiary must be a resident of Karnataka and have a valid resident certificate. All weavers and financially distressed workers engaged in the handloom/power loom industry and ancillary activities such as cotton, wool, and silk in the state are eligible. Prospective beneficiaries must have an active bank account.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2621,
+      "reset_tokens_seconds": 40.342
+    },
+    "_verified_at": "2026-09-13T07:58:28.800427+00:00"
+  }
+}

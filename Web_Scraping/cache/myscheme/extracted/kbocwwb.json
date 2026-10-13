@@ -1,0 +1,31 @@
+{
+  "_input_hash": "384b06e35c9ff87848de03430f98e8188a28685ec4f5385d4193f7966dbddf9a",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a monthly pension to registered construction workers who are at least 60 years old and have been beneficiaries of the Building and Other Construction Workers Welfare Board for at least three years.",
+    "eligibility": "Applicant must be a registered building/construction worker (unorganised worker), at least 18 years old, have engaged in building and construction work for at least 90 days in a year, be a beneficiary of the Board for at least three consecutive years before turning 60, have reached 60 years of age, and must not be receiving similar benefits from any other government scheme.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Senior Citizen"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4410,
+      "reset_tokens_seconds": 26.924
+    },
+    "_verified_at": "2026-09-13T07:49:57.130728+00:00"
+  }
+}

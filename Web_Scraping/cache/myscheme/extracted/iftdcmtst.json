@@ -1,0 +1,31 @@
+{
+  "_input_hash": "74630416e32ebc6b484afe1dead6f0c5dd14cc270665947bb4450e7a083baeb6",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a financial incentive of ₹8 lakh to Scheduled Tribe couples from the Devadasi community who marry on or after 1 April 2019, with ₹3 lakh for the groom and ₹5 lakh for the bride, to promote social acceptance and reduce casteism.",
+    "eligibility": "Both spouses must be residents of Karnataka, belong to the Hindu religion, have a combined annual income below ₹5,00,000, and one spouse must be from the Scheduled Tribe community. The marriage must have taken place on or after 1 April 2019 and be between an ST individual and a non‑ST individual or between two ST individuals. The application must be submitted within 18 months of the marriage.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 500000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "ST"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3498,
+      "reset_tokens_seconds": 33.765
+    },
+    "_verified_at": "2026-09-13T07:58:07.133885+00:00"
+  }
+}

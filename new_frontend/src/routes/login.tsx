@@ -9,16 +9,16 @@ import {
   loginUser,
 } from "@/lib/profile-store";
 import { toast } from "sonner";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Eye, EyeOff } from "lucide-react";
 import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
       { title: "Sign in — Sahayak" },
-      { name: "description", content: "Access your account or continue as guest." },
+      { name: "description", content: "Sign in or create your Sahayak account." },
       { property: "og:title", content: "Sign in — Sahayak" },
-      { property: "og:description", content: "Account login, registration, and guest access." },
+      { property: "og:description", content: "Sign in or create your Sahayak account." },
     ],
   }),
   component: LoginPage,
@@ -31,6 +31,7 @@ function LoginPage() {
   const [mode, setMode] = useState<"login" | "register">("login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [mobile, setMobile] = useState("");
   const [step, setStep] = useState<"form" | "otp">("form");
   const [otp, setOtp] = useState("");
@@ -106,13 +107,28 @@ function LoginPage() {
               </div>
               <div>
                 <Label htmlFor="password">{t("login.password")}</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder={t("login.passwordPlaceholderLogin")}
-                />
+                <div className="relative mt-1.5">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={t("login.passwordPlaceholderLogin")}
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
               </div>
               <Button className="w-full" size="lg" onClick={login}>
                 {t("login.loginBtn")}
@@ -131,13 +147,28 @@ function LoginPage() {
               </div>
               <div>
                 <Label htmlFor="password">{t("login.password")}</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder={t("login.passwordPlaceholderRegister")}
-                />
+                <div className="relative mt-1.5">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={t("login.passwordPlaceholderRegister")}
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground hover:text-foreground"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </button>
+                </div>
               </div>
               <div>
                 <Label htmlFor="mobile">{t("login.mobileLabel")}</Label>

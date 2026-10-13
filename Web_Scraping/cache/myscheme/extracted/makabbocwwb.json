@@ -1,0 +1,29 @@
+{
+  "_input_hash": "4aa8ec598e0693b651147ad73c0d45c5b7a2ee0eb93f068519039cab165140be",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to registered construction workers and their dependents for hospitalisation expenses in recognised hospitals.",
+    "eligibility": "Applicants must be building or construction workers (unorganised workers) who are registered under the Building and Other Construction Workers Welfare Board of Karnataka, be at least 18 years old, have worked in building and construction for at least 90 days in a year, and their dependents are also eligible. The beneficiary must be hospitalized for a minimum of 48 continuous hours, and treatment must be in a government, private, or State Government‑recognised insurance hospital.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "labourer",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2926,
+      "reset_tokens_seconds": 38.055
+    },
+    "_verified_at": "2026-09-13T08:06:27.911186+00:00"
+  }
+}

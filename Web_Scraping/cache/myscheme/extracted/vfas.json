@@ -1,0 +1,29 @@
+{
+  "_input_hash": "bf5c4cbb905028ab87af6366819d1caf79259ac4100776e8313c9cc6afb31f35",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a monthly stipend of Rs.1,500 for ten months to students from backward classes pursuing post‑matric courses in recognized institutions in Karnataka.",
+    "eligibility": "Students must be Indian citizens and permanent residents of Karnataka, belong to backward classes listed by the Government of India or the State Government, be pursuing post‑matric courses in government, local, aided or recognized private institutions affiliated with statutory universities, not be admitted in any departmental or government‑funded hostel, have family annual income within the limits specified for their category, and meet the minimum marks required in the previous year’s examination.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "student",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2682,
+      "reset_tokens_seconds": 39.885
+    },
+    "_verified_at": "2026-09-13T08:01:14.772056+00:00"
+  }
+}

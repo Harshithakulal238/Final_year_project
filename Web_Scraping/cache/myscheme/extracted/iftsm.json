@@ -1,0 +1,31 @@
+{
+  "_input_hash": "cedcf9a5ccf6bfe135382cc3a00fbc794a522f0c470a7a4b22557cda695d58cd",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a financial incentive of Rs. 50,000 to couples belonging to the SC community who opt for a simple marriage ceremony and apply within one year of marriage, provided they are Karnataka residents with family income not exceeding Rs. 2 lakh per annum.",
+    "eligibility": "Karnataka resident; belonging to the SC community; family income not exceeding Rs. 2 lakh per annum; application submitted within one year of marriage.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 200000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2590,
+      "reset_tokens_seconds": 40.575
+    },
+    "_verified_at": "2026-09-13T07:50:52.177156+00:00"
+  }
+}

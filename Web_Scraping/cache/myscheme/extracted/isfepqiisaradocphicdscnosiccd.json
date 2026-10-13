@@ -1,0 +1,29 @@
+{
+  "_input_hash": "0cfe9fdbbc66094d381357e487d04171dc6f4d12e99fec4bfb5a6334162bf74e",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme encourages cardamom growers to adopt Improved Cardamom Curing Devices for drying small cardamom, thereby improving produce quality and export suitability. It is implemented by the Spices Board India under the Ministry of Commerce and Industry.",
+    "eligibility": "The applicant should belong to Kerala, Tamil Nadu & Karnataka.; Designated Officials will conduct final inspection and recommend the eligible cases.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2756,
+      "reset_tokens_seconds": 39.33
+    },
+    "_verified_at": "2026-09-13T08:12:19.178292+00:00"
+  }
+}

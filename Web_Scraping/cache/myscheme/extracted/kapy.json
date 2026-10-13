@@ -1,0 +1,29 @@
+{
+  "_input_hash": "8e957c6db654fb41b90d41ba6bdf2d728333d6fe3079516e8fbb8f9e21b2b07a",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The Karnataka Forest Department launched the Krushi Aranya Protsaha Yojane (KAPY) in 2011‑12 to provide subsidized seedlings and monetary incentives to farmers and the public for planting and nurturing trees, thereby increasing forest and tree cover.",
+    "eligibility": "Open to all farmers regardless of community; applicants must have a Pahani of the land where planting is proposed and must register before the end of May; certain tree species are excluded from incentive payments; required documents include Aadhaar copy, photograph, land Pahani, land sketch, seedling details, and bank account details.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "farmer",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3668,
+      "reset_tokens_seconds": 32.49
+    },
+    "_verified_at": "2026-09-13T08:00:56.324451+00:00"
+  }
+}

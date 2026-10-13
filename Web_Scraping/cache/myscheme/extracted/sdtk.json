@@ -1,0 +1,31 @@
+{
+  "_input_hash": "28ae6a5c1e0153fc48557386e208e616632fa5d756ff5a9250a8e5e1de8a64bb",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The program equips artisans with skills for manufacturing footwear and leather goods, promoting the leather industry and enhancing artisans' livelihoods.",
+    "eligibility": "Applicants must be leather artisans belonging to listed sub‑castes among scheduled castes, be at least 18 years old, have an annual family income not exceeding ₹30,000 in rural areas or ₹25,000 in urban areas, must not have received benefits from other schemes except training programmes, and their family members must not be employed in government or semi‑government organisations.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 30000,
+    "income_limit_urban": 25000,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4903,
+      "reset_tokens_seconds": 23.227
+    },
+    "_verified_at": "2026-09-13T07:53:15.175499+00:00"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_input_hash": "08d1fffeb5689e56493ceae8bbeb9e888ad3db9aa918345ff68a48dfea03af5e",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a cash incentive of ₹2,00,000 to couples belonging to the Scheduled Tribe community who marry across different sub‑castes, provided the marriage occurs on or after 1 April 2018 and the couple resides in Karnataka.",
+    "eligibility": "Both partners must reside in Karnataka, belong to the Scheduled Tribe community but be from different sub‑castes, have a combined annual income less than ₹2,00,000, and apply within one year of a marriage that took place on or after 1 April 2018.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 200000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "ST"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4421,
+      "reset_tokens_seconds": 26.842
+    },
+    "_verified_at": "2026-09-13T08:00:38.247365+00:00"
+  }
+}

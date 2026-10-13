@@ -95,7 +95,7 @@ export function SiteHeader() {
                       </div>
                     ) : (
                       <div className="text-xs font-normal text-muted-foreground">
-                        {t("header.guestSession")}
+                        {t("header.mobileNotVerified")}
                       </div>
                     )}
                   </DropdownMenuLabel>

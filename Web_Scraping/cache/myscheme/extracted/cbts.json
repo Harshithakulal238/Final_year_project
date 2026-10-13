@@ -1,0 +1,31 @@
+{
+  "_input_hash": "efdc5f24860a28256c170c728667049c9bc42c6ec91b34fdd398d0725535f424",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides training in heavy vehicle driving, shorthand, security services, office soft skills, retail sales, and beauty parlor courses for unemployed young men and women from minority communities to enable self‑employment or employment.",
+    "eligibility": "Applicants must belong to the religious minority community of Karnataka, be permanent residents of Karnataka, be aged between 18 and 35 years, have a family annual income below ₹1,03,000 in urban areas or ₹96,000 in rural areas, possess at least an SSLC qualification, not have previously received training under any state or central scheme, and must complete the training.",
+    "age_min": 18,
+    "age_max": 35,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 96000,
+    "income_limit_urban": 103000,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": "10th Pass",
+    "special_conditions": [
+      "Minority"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4248,
+      "reset_tokens_seconds": 28.139
+    },
+    "_verified_at": "2026-09-13T07:51:54.387235+00:00"
+  }
+}

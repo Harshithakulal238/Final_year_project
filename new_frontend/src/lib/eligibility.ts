@@ -174,7 +174,7 @@ export function confidenceScore(profile: Profile): { level: "Low" | "Medium" | "
     pts += 30;
     notes.push("Mobile OTP verified");
   } else {
-    notes.push("Guest session — OTP not verified");
+    notes.push("Mobile OTP not verified");
   }
   const loc = profile.location;
   const locFilled =

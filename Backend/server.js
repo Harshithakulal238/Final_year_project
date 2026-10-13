@@ -290,7 +290,35 @@ async function getUserCollection(db) {
   return match ? db.collection(match.name) : null;
 }
 
- 
+function firstText(...values) {
+  return values.find((value) => typeof value === 'string' && value.trim())?.trim() || '';
+}
+
+app.get('/api/schemes', async (_req, res) => {
+  try {
+    const db = await connectMongo();
+    const schemeCollection = await getSchemeCollection(db);
+    if (!schemeCollection) {
+      return res.status(404).json({ message: 'No scheme collection found in the database' });
+    }
+
+    const schemes = await schemeCollection.find({}).toArray();
+    return res.json({
+      schemes: schemes.map((scheme) => ({
+        id: String(scheme._id),
+        name: firstText(scheme.scheme_name, scheme.schemeName, scheme.name) || 'Unknown Scheme',
+        description: firstText(scheme.objective, scheme.description, scheme.overview, scheme.benefits),
+        benefits: firstText(scheme.benefits),
+        category: firstText(scheme.category, scheme.scheme_category, scheme.scheme_type),
+        ministry: firstText(scheme.ministry, scheme.implementing_agency),
+        sourceUrl: firstText(scheme.source_url, scheme.url, scheme.schemeUrl, scheme.scheme_url),
+      })),
+    });
+  } catch (error) {
+    console.error('Unable to load schemes:', error);
+    return res.status(500).json({ message: 'Unable to load schemes from the database' });
+  }
+});
 
 app.get('/api/recommend/:userId', async (req, res) => {
 

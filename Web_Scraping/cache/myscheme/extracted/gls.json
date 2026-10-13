@@ -1,0 +1,32 @@
+{
+  "_input_hash": "0a68f5bed95d63c367c234a4bacbc3331705ea04f6827a91ec414a55b92d2af0",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "Griha Lakshmi is a Karnataka government scheme that provides a monthly financial assistance of ₹2,000 to women who are heads of households, helping them manage household expenses and improve economic stability.",
+    "eligibility": "The applicant must be a woman, listed as the head of the family on the ration card (BPL or APL), and the family must be resident of Karnataka. In case of the death of the family head, the next eligible female member can be registered. Women from BPL families are given priority.",
+    "age_min": null,
+    "age_max": null,
+    "gender": "female",
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [
+      "BPL",
+      "APL"
+    ],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2961,
+      "reset_tokens_seconds": 37.792
+    },
+    "_verified_at": "2026-09-13T07:56:50.390902+00:00"
+  }
+}

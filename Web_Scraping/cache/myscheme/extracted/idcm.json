@@ -1,0 +1,31 @@
+{
+  "_input_hash": "4104e230b6fd9cce41f09f9c671bded56c1c74eb0003d086328a953897e62fc9",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial incentives of ₹3 lakh for men and ₹5 lakh for women from Devadasi families who are married couples, subject to income and caste eligibility criteria.",
+    "eligibility": "Applicants must be residents of Karnataka, belong to the Scheduled Caste community, have a family income not exceeding Rs 5 lakh per annum, and apply within 18 months of marriage.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 500000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4055,
+      "reset_tokens_seconds": 29.587
+    },
+    "_verified_at": "2026-09-13T08:05:51.428577+00:00"
+  }
+}

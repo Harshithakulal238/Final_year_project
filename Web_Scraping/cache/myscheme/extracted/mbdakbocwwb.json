@@ -1,0 +1,31 @@
+{
+  "_input_hash": "1cdb43e432502ccb4014c30c55c22b39f77fd24f688ca7bc7c86ee2ddb34df7f",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to registered women construction workers in Karnataka for the birth of up to two children.",
+    "eligibility": "The applicant should be a Building/Construction Worker (Unorganised Worker), be a registered woman construction worker under the Building and Other Construction Workers Welfare Board of Karnataka, be at least 18 years old, have engaged in building and construction work for at least 90 days in a given year, be pregnant, and the assistance is only for the first two deliveries.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": "female",
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Pregnant"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4839,
+      "reset_tokens_seconds": 23.707
+    },
+    "_verified_at": "2026-09-13T08:07:09.367388+00:00"
+  }
+}

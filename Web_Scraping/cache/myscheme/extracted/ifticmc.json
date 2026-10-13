@@ -1,0 +1,31 @@
+{
+  "_input_hash": "96503017cab4f15f2041f39e619a15066fa53932701954cf3583908809bf8ee5",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial incentives to encourage inter‑caste marriages, targeting Scheduled Caste individuals who marry outside their caste, particularly with Hindu non‑SC partners, to reduce caste‑based discrimination.",
+    "eligibility": "The bride and groom must belong to the Hindu category, reside in Karnataka, and the marriage must be between a Scheduled Caste individual and a person from another community. The couple’s annual income should not exceed ₹5,00,000. The bride’s age must be between 18 and 42 years, and the groom’s age between 21 and 45 years at the time of marriage.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 500000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4116,
+      "reset_tokens_seconds": 29.13
+    },
+    "_verified_at": "2026-09-13T07:57:48.253598+00:00"
+  }
+}

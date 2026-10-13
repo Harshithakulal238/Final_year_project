@@ -1,0 +1,29 @@
+{
+  "_input_hash": "9806f7a0aef0ee86dc7f3ca566a45db3aa14284c2520c81e29c6c1972a21dbc2",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The National Mission on Edible Oils – Oil Palm aims to increase edible oilseed production and availability by expanding oil palm cultivation, boosting crude palm oil output, and reducing import dependence, with implementation by state agriculture and horticulture departments, research institutions, processors, private sector and NGOs.",
+    "eligibility": null,
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4279,
+      "reset_tokens_seconds": 27.907
+    },
+    "_verified_at": "2026-09-13T08:13:01.779818+00:00"
+  }
+}

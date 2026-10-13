@@ -1,0 +1,31 @@
+{
+  "_input_hash": "8044803578e6bb57a0284969f9569412225c693beba1f47b081f26de82b26635",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to houseless leather artisans for constructing living cum work sheds through the Rajiv Gandhi Rural Housing Corporation.",
+    "eligibility": "Applicants must be leather artisans belonging to the listed sub‑castes among scheduled castes, be at least 18 years old, have an annual family income not exceeding ₹32,000 in rural areas or ₹87,600 in urban areas, must not have received benefits from other schemes except Training/Paaduke kuteera schemes, and their family members should not be employed in government or semi‑government organizations.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 32000,
+    "income_limit_urban": 87600,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3634,
+      "reset_tokens_seconds": 32.744
+    },
+    "_verified_at": "2026-09-13T08:07:45.166363+00:00"
+  }
+}

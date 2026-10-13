@@ -15,7 +15,7 @@ const en = {
   "header.home": "Home",
   "header.mySchemes": "My schemes",
   "header.accountMenuAria": "Account menu",
-  "header.guestSession": "Guest session",
+  "header.mobileNotVerified": "Mobile not verified",
   "header.dashboard": "Dashboard",
   "header.viewProfile": "View profile",
   "header.editProfile": "Edit profile",
@@ -24,7 +24,7 @@ const en = {
   "header.mobilePrefix": "+91 {mobile}",
   "header.logoutConfirmTitle": "Do you really want to log out?",
   "header.logoutConfirmDesc":
-    "Your saved profile and bookmarks on this device will be cleared. You can sign in again with OTP or continue as guest.",
+    "Your saved profile and bookmarks on this device will be cleared. You can sign in again anytime.",
   "header.logoutCancel": "Cancel",
   "header.logoutConfirm": "Yes, log out",
   "header.loggedOutToast": "Logged out",
@@ -52,7 +52,7 @@ const en = {
   "landing.stepsTitle": "Your path to the right scheme",
   "landing.stepsSubtitle": "Four simple steps from profile to application.",
   "landing.step1Title": "Sign in",
-  "landing.step1Body": "Verify with mobile OTP or continue as guest.",
+  "landing.step1Body": "Create an account and verify your mobile number with OTP.",
   "landing.step2Title": "Tell us about you",
   "landing.step2Body": "Age, income, ration card, caste, occupation, status.",
   "landing.step3Title": "We match",
@@ -90,8 +90,6 @@ const en = {
   "login.resendOtp": "Resend OTP",
   "login.back": "Back",
   "login.verifyOtp": "Verify OTP",
-  "login.continueGuest": "Continue as guest",
-  "login.guestNote": "Guest confidence will be lower — you can verify anytime.",
   "login.alreadyHaveAccount": "Already have an account?",
   "login.newToSahayak": "New to Sahayak?",
   "login.createAccount": "Create an account",
@@ -106,7 +104,7 @@ const en = {
 
   // dashboard
   "dashboard.verifiedBadge": "Verified · +91 {mobile}",
-  "dashboard.guestBadge": "Guest session",
+  "dashboard.mobileNotVerified": "Mobile not verified",
   "dashboard.welcomeBackPrefix": "Welcome back,",
   "dashboard.matchCount": "{count} government scheme{suffix} match your profile right now.",
   "dashboard.completeProfilePrompt":
@@ -144,8 +142,7 @@ const en = {
   "profile.viewSubtitle":
     "Review your information. Update it anytime — recommendations refresh automatically.",
   "profile.requiredNote": "Fields marked with * are required. Your answers stay on your device.",
-  "profile.guestSessionPrefix": "Guest session ·",
-  "profile.verifyToBoost": "verify to boost confidence",
+  "profile.mobileNotVerified": "Mobile not verified",
   "profile.verifiedMobile": "Mobile verified · +91 {mobile}",
   "profile.editProfileBtn": "Edit profile",
   "profile.viewSchemesBtn": "View schemes",
@@ -304,7 +301,7 @@ const kn: Record<keyof typeof en, string> = {
   "header.home": "ಮುಖಪುಟ",
   "header.mySchemes": "ನನ್ನ ಯೋಜನೆಗಳು",
   "header.accountMenuAria": "ಖಾತೆ ಮೆನು",
-  "header.guestSession": "ಅತಿಥಿ ಅವಧಿ",
+  "header.mobileNotVerified": "ಮೊಬೈಲ್ ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ",
   "header.dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
   "header.viewProfile": "ಪ್ರೊಫೈಲ್ ವೀಕ್ಷಿಸಿ",
   "header.editProfile": "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
@@ -313,7 +310,7 @@ const kn: Record<keyof typeof en, string> = {
   "header.mobilePrefix": "+91 {mobile}",
   "header.logoutConfirmTitle": "ನೀವು ನಿಜವಾಗಿಯೂ ಲಾಗ್ಔಟ್ ಮಾಡಲು ಬಯಸುವಿರಾ?",
   "header.logoutConfirmDesc":
-    "ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಸಿದ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಮತ್ತು ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳು ಅಳಿಸಲ್ಪಡುತ್ತವೆ. ನೀವು OTP ಮೂಲಕ ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಬಹುದು ಅಥವಾ ಅತಿಥಿಯಾಗಿ ಮುಂದುವರಿಯಬಹುದು.",
+    "ಈ ಸಾಧನದಲ್ಲಿ ಉಳಿಸಿದ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್ ಮತ್ತು ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳು ಅಳಿಸಲ್ಪಡುತ್ತವೆ. ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಬಹುದು.",
   "header.logoutCancel": "ರದ್ದುಮಾಡಿ",
   "header.logoutConfirm": "ಹೌದು, ಲಾಗ್ಔಟ್ ಮಾಡಿ",
   "header.loggedOutToast": "ಲಾಗ್ಔಟ್ ಆಗಿದೆ",
@@ -343,7 +340,7 @@ const kn: Record<keyof typeof en, string> = {
   "landing.stepsTitle": "ಸರಿಯಾದ ಯೋಜನೆಗೆ ನಿಮ್ಮ ದಾರಿ",
   "landing.stepsSubtitle": "ಪ್ರೊಫೈಲ್‌ನಿಂದ ಅರ್ಜಿಯವರೆಗೆ ನಾಲ್ಕು ಸರಳ ಹಂತಗಳು.",
   "landing.step1Title": "ಸೈನ್ ಇನ್ ಮಾಡಿ",
-  "landing.step1Body": "ಮೊಬೈಲ್ OTP ಮೂಲಕ ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಅತಿಥಿಯಾಗಿ ಮುಂದುವರಿಯಿರಿ.",
+  "landing.step1Body": "ಖಾತೆ ರಚಿಸಿ ಮತ್ತು OTP ಮೂಲಕ ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ಪರಿಶೀಲಿಸಿ.",
   "landing.step2Title": "ನಿಮ್ಮ ಬಗ್ಗೆ ತಿಳಿಸಿ",
   "landing.step2Body": "ವಯಸ್ಸು, ಆದಾಯ, ರೇಷನ್ ಕಾರ್ಡ್, ಜಾತಿ, ಉದ್ಯೋಗ, ಸ್ಥಿತಿ.",
   "landing.step3Title": "ನಾವು ಹೊಂದಿಸುತ್ತೇವೆ",
@@ -382,8 +379,6 @@ const kn: Record<keyof typeof en, string> = {
   "login.resendOtp": "OTP ಮರುಕಳುಹಿಸಿ",
   "login.back": "ಹಿಂದೆ",
   "login.verifyOtp": "OTP ಪರಿಶೀಲಿಸಿ",
-  "login.continueGuest": "ಅತಿಥಿಯಾಗಿ ಮುಂದುವರಿಯಿರಿ",
-  "login.guestNote": "ಅತಿಥಿ ವಿಶ್ವಾಸಾರ್ಹತೆ ಕಡಿಮೆ ಇರುತ್ತದೆ — ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಪರಿಶೀಲಿಸಬಹುದು.",
   "login.alreadyHaveAccount": "ಈಗಾಗಲೇ ಖಾತೆ ಹೊಂದಿದ್ದೀರಾ?",
   "login.newToSahayak": "ಸಹಾಯಕ್‌ಗೆ ಹೊಸಬರೇ?",
   "login.createAccount": "ಖಾತೆ ರಚಿಸಿ",
@@ -398,7 +393,7 @@ const kn: Record<keyof typeof en, string> = {
 
   // dashboard
   "dashboard.verifiedBadge": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ · +91 {mobile}",
-  "dashboard.guestBadge": "ಅತಿಥಿ ಅವಧಿ",
+  "dashboard.mobileNotVerified": "ಮೊಬೈಲ್ ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ",
   "dashboard.welcomeBackPrefix": "ಮತ್ತೆ ಸ್ವಾಗತ,",
   "dashboard.matchCount": "{count} ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು ಈಗ ನಿಮ್ಮ ಪ್ರೊಫೈಲ್‌ಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತವೆ.",
   "dashboard.completeProfilePrompt":
@@ -439,8 +434,7 @@ const kn: Record<keyof typeof en, string> = {
     "ನಿಮ್ಮ ಮಾಹಿತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ. ಯಾವಾಗ ಬೇಕಾದರೂ ನವೀಕರಿಸಿ — ಶಿಫಾರಸುಗಳು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಪುನಶ್ಚೇತನಗೊಳ್ಳುತ್ತವೆ.",
   "profile.requiredNote":
     "* ಗುರುತಿಸಲಾದ ಕ್ಷೇತ್ರಗಳು ಕಡ್ಡಾಯ. ನಿಮ್ಮ ಉತ್ತರಗಳು ನಿಮ್ಮ ಸಾಧನದಲ್ಲೇ ಉಳಿಯುತ್ತವೆ.",
-  "profile.guestSessionPrefix": "ಅತಿಥಿ ಅವಧಿ ·",
-  "profile.verifyToBoost": "ವಿಶ್ವಾಸಾರ್ಹತೆ ಹೆಚ್ಚಿಸಲು ಪರಿಶೀಲಿಸಿ",
+  "profile.mobileNotVerified": "ಮೊಬೈಲ್ ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ",
   "profile.verifiedMobile": "ಮೊಬೈಲ್ ಪರಿಶೀಲಿಸಲಾಗಿದೆ · +91 {mobile}",
   "profile.editProfileBtn": "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
   "profile.viewSchemesBtn": "ಯೋಜನೆಗಳನ್ನು ವೀಕ್ಷಿಸಿ",

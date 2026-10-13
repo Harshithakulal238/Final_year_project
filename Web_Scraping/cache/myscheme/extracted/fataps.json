@@ -1,0 +1,29 @@
+{
+  "_input_hash": "712ed29c70f49f2a24b1f17696217ebc003d31a603b434f82d6004e951dcca7e",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to traditional artisans of the Vishwakarma community in Karnataka to help them purchase modern tools and upgrade their technological skills.",
+    "eligibility": "Applicant must belong to the Vishwakarma community, be a permanent resident of Karnataka, be aged 18 to 55 years, be engaged in a traditional Vishwakarma occupation (such as gold & silver work, sculpture, blacksmith, woodwork & handicrafts, or metallurgy), and must not have availed any loan facility from KVCDC in previous years.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3448,
+      "reset_tokens_seconds": 34.14
+    },
+    "_verified_at": "2026-09-13T08:02:52.732642+00:00"
+  }
+}

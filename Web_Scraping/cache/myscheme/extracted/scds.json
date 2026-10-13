@@ -1,0 +1,29 @@
+{
+  "_input_hash": "5ccff84b30f716060c1889675bde84671d8aae1aeba7256c894a8af6cc3a4e58",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance in the form of loans and subsidies to members of the Sikhligara community in Karnataka to help them start businesses or purchase commercial vehicles, aiming to promote economic self‑reliance for this economically backward group.",
+    "eligibility": "Must belong to the Sikh community; must be a permanent resident of Karnataka; age between 18 and 55 years; family income from all sources must not exceed ₹6,00,000 per annum; no family member should be a State/Central Government employee; neither the applicant nor family members should have availed any loan/subsidy from the Corporation in the last 5 years (except Arivu Education Loan and Foreign Education Loan Scheme); applicant should not be a defaulter of the Corporation.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": 600000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4644,
+      "reset_tokens_seconds": 25.17
+    },
+    "_verified_at": "2026-09-13T08:10:24.258247+00:00"
+  }
+}

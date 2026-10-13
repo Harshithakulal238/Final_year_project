@@ -1,0 +1,29 @@
+{
+  "_input_hash": "6ec17be18dd7ed0b0da9fc38d15d99c12268fada530856ac7a1c4e8f5d1f783d",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial loan assistance to minority community students from Karnataka who are pursuing graduate or postgraduate degree courses in recognized foreign universities.",
+    "eligibility": "The student must be a resident of Karnataka State, belong to a minority community (Muslim, Christian, Jain, Buddhist, Sikh, or Parsi), have secured at least 60% marks in the previous year, possess an offer letter from a foreign university, obtain the loan against mortgage of property (building/land) whose value is not less than the loan amount, and must not have received a scholarship from the Directorate of Minorities.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "student",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3611,
+      "reset_tokens_seconds": 32.917
+    },
+    "_verified_at": "2026-09-13T07:52:12.784258+00:00"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "_input_hash": "24fd530319007e07d96a660a988f09cdb69e82179000d4f8d8e1719060905e32",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a monthly pension to registered construction workers who are partially disabled due to worksite accidents or diseases, with an additional ex-gratia payment based on the disability percentage.",
+    "eligibility": "Applicant must be a registered building/construction worker (unorganised worker) under the Building and Other Construction Workers Welfare Board of Karnataka, at least 18 years old, have worked in building and construction for at least 90 days in a year, be partially disabled due to worksite accidents or diseases, not have availed accident benefits for the same disability, and be below 60 years of age.",
+    "age_min": 18,
+    "age_max": 59,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Disabled"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": true,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4734,
+      "reset_tokens_seconds": 24.495
+    },
+    "_verified_at": "2026-09-13T07:55:55.933284+00:00"
+  }
+}

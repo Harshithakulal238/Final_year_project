@@ -1,0 +1,29 @@
+{
+  "_input_hash": "bcb561758e3fe526811024e096c9f4b16f92f9551857cba8111710ec7473e33d",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance in the form of loans to members of Karnataka's religious minority communities to start or expand their businesses, secured by mortgaging property such as land or building.",
+    "eligibility": "Applicant must be a resident of Karnataka, belong to a religious minority community, be aged between 18 and 55 years, and only one member per family can receive the loan.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3166,
+      "reset_tokens_seconds": 36.254
+    },
+    "_verified_at": "2026-09-13T08:09:23.724265+00:00"
+  }
+}

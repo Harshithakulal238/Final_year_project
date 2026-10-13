@@ -1,0 +1,29 @@
+{
+  "_input_hash": "c25afc86e2925ee0696010ff3b297ade0647ffd2e375536e0dd4fc969ddb9f47",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to children of teachers and lecturers employed in government or aided institutions by covering the interest component of educational loans taken from nationalized banks for medical and engineering courses, including postgraduate studies.",
+    "eligibility": "Parent must be a teacher/lecturer employed in a government or aided institution and have life membership of the Welfare Fund; student must have passed each year or semester of the course on the first attempt; student should have studied from 1st to 10th standard in government or aided schools in Karnataka; applicant must have availed an educational loan from a nationalized bank for professional education in medicine or engineering within India; only one child per family can avail the assistance; assistance is available only for final‑year students in vocational medical, engineering, or postgraduate programmes.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "salaried",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4363,
+      "reset_tokens_seconds": 27.277
+    },
+    "_verified_at": "2026-09-13T08:09:06.174279+00:00"
+  }
+}

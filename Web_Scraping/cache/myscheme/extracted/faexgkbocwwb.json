@@ -1,0 +1,29 @@
+{
+  "_input_hash": "06d1fd22f32171f5950c6cdfb4ca3298e0660d396a352676b7a78211d30d7491",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance of ₹4,000 for funeral expenses and an ex‑gratia payment of ₹71,000 to the nominee of a deceased registered construction worker under the Building and Other Construction Workers Welfare Board of Karnataka.",
+    "eligibility": "Applicant must be a Building/Construction Worker (Unorganised Worker), at least 18 years old, have engaged in building and construction work for at least 90 days in a year, and be the nominee of a deceased registered construction worker under the Board.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3935,
+      "reset_tokens_seconds": 30.487
+    },
+    "_verified_at": "2026-09-13T08:02:34.626497+00:00"
+  }
+}

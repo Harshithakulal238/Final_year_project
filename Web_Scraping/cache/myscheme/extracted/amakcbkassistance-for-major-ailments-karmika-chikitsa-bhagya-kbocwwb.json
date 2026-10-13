@@ -1,0 +1,29 @@
+{
+  "_input_hash": "87e29ca6cf3f0a2a02cb835ae1043132c158c7204449a57b09aa0c45b07b67dc",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to registered construction workers and their dependents for medical expenses related to specified major ailments.",
+    "eligibility": "Applicant must be a building/construction worker (unorganised worker) who is a registered construction worker under the Building and Other Construction Workers Welfare Board of Karnataka, at least 18 years old, with at least 90 days of work in a year, or their dependents, and must suffer from a major ailment specified in the scheme.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "labourer",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3204,
+      "reset_tokens_seconds": 35.97
+    },
+    "_verified_at": "2026-09-13T08:06:09.335910+00:00"
+  }
+}

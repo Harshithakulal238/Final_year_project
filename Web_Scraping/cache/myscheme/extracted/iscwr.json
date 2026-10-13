@@ -1,0 +1,33 @@
+{
+  "_input_hash": "6bc1eebc9db7eb0701a08371be6a6db3ec2343780c111fde0d5e8b6ea6ef8957",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a financial incentive of ₹3 lakh to Scheduled Caste widows in Karnataka who remarry, aiming to encourage widow remarriage and help them lead a normal life.",
+    "eligibility": "The applicant must be a resident of Karnataka, be a widow belonging to the Scheduled Caste community, and submit the application within one year of marriage. There is no annual income limit, and there are no caste or religion restrictions for the spouse. The couple should reside in Karnataka.",
+    "age_min": null,
+    "age_max": null,
+    "gender": "female",
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Widow"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4670,
+      "reset_tokens_seconds": 24.975
+    },
+    "_verified_at": "2026-09-13T07:59:11.456940+00:00"
+  }
+}

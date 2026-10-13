@@ -191,10 +191,7 @@ function ProfilePage() {
                 </div>
               ) : (
                 <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-                  {t("profile.guestSessionPrefix")}{" "}
-                  <Link to="/login" className="underline">
-                    {t("profile.verifyToBoost")}
-                  </Link>
+                  
                 </div>
               )}
             </div>
@@ -287,10 +284,7 @@ function ProfilePage() {
             </div>
           ) : (
             <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground">
-              {t("profile.guestSessionPrefix")}{" "}
-              <Link to="/login" className="underline">
-                {t("profile.verifyToBoost")}
-              </Link>
+              {t("profile.mobileNotVerified")}
             </div>
           )}
         </div>

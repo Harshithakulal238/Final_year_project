@@ -1,0 +1,31 @@
+{
+  "_input_hash": "fcc0bdbaf58d25f2cab006194f75a29b75ba6793a87c914e6083d6849efbfd2c",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides training in artistic and technical skills to entrepreneurs from religious minority communities and offers a loan of ₹50,000 at 4% interest to be repaid in 36 installments, with a possible subsidy component.",
+    "eligibility": "Applicants must be aged 18 to 55, be permanent residents of the state, belong to a state religious minority community, have a family income not exceeding ₹3.50 lakh per annum, not have availed benefits under any other KMDCL scheme (excluding the Arivu Scheme) in the last 5 years, have no family member employed in government PSUs, and must not be a loan defaulter in KMDC.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": 350000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Minority"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3689,
+      "reset_tokens_seconds": 32.332
+    },
+    "_verified_at": "2026-09-13T07:48:51.186341+00:00"
+  }
+}

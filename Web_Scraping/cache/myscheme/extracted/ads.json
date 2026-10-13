@@ -1,0 +1,32 @@
+{
+  "_input_hash": "7ba9214e2d43cec3649f25906e4ed87edf1516b3ad8e94deb185c3772a2182eb",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The Ashadeepa Scheme, launched by the Government of Karnataka in the 2017‑18 budget, aims to create employment opportunities for Scheduled Caste and Scheduled Tribe candidates in the private sector, thereby improving their socio‑economic conditions and ensuring social justice.",
+    "eligibility": "Applicants must be residents of Karnataka, belong to the Scheduled Castes (SC) or Scheduled Tribes (ST) category, and be employed in a private‑sector industry or establishment. SC/ST candidates undergoing apprenticeship training under the Apprenticeship Act, 1961 are eligible for stipend reimbursement, and those who complete apprenticeship and are hired permanently make the employer eligible for salary reimbursement. SC/ST candidates are also eligible for skill‑development training organized by the Department of Skill Development, Government of Karnataka.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC",
+      "ST"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2684,
+      "reset_tokens_seconds": 39.87
+    },
+    "_verified_at": "2026-09-13T08:11:01.058182+00:00"
+  }
+}

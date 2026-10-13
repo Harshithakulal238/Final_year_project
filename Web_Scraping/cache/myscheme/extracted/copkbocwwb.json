@@ -1,0 +1,29 @@
+{
+  "_input_hash": "6fdc00dcc401907698766b493410c5064e58820dc7a32b00603f7d33a2b18756",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a monthly pension to registered building and construction workers who have paid subscriptions for at least three years and remain active in the profession until age 60.",
+    "eligibility": "Applicant must be a registered building/construction worker (unorganised worker), at least 18 years old, have engaged in building and construction work for at least 90 days in a year, have paid subscription fees for at least three continuous years, remain an active construction worker, be below 60 years of age, and not receive a similar pension from any other government scheme.",
+    "age_min": 18,
+    "age_max": 60,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2604,
+      "reset_tokens_seconds": 40.47
+    },
+    "_verified_at": "2026-09-13T07:52:31.416376+00:00"
+  }
+}

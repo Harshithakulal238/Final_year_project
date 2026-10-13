@@ -26,6 +26,16 @@ export type Recommendation = {
   explanation: string[];
 };
 
+export type SchemeCatalogItem = {
+  id: string;
+  name: string;
+  description: string;
+  benefits: string;
+  category: string;
+  ministry: string;
+  sourceUrl: string;
+};
+
 export type TfIdfRecommendation = {
   schemeId: string;
   schemeName: string;
@@ -57,6 +67,10 @@ export function getRecommendations(userId: string) {
     {},
     RECOMMENDATION_API_URL,
   );
+}
+
+export function getSchemes() {
+  return api<{ schemes: SchemeCatalogItem[] }>("/api/schemes", {}, RECOMMENDATION_API_URL);
 }
 
 export function getTfIdfRecommendations(userId: string) {

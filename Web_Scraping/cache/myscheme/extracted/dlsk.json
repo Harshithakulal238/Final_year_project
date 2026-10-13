@@ -1,0 +1,31 @@
+{
+  "_input_hash": "8e9af0a872c201128e86cb4245c7fda39b4bead831b00911f6cba00669133897",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to unemployed scheduled‑caste leather artisans to start or expand small‑scale enterprises, aiming to empower artisans and improve their livelihoods.",
+    "eligibility": "Applicant must be a leather artisan belonging to specified scheduled‑caste sub‑castes, be at least 18 years old, have annual family income not exceeding ₹30,000 in rural areas or ₹25,000 in urban areas, not have received benefits from other schemes (except training), and have no family members employed in government or semi‑government organisations.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 30000,
+    "income_limit_urban": 25000,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4636,
+      "reset_tokens_seconds": 25.23
+    },
+    "_verified_at": "2026-09-13T08:03:55.271102+00:00"
+  }
+}

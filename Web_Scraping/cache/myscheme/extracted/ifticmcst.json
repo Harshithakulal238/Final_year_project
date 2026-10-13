@@ -1,0 +1,32 @@
+{
+  "_input_hash": "16dd555e4be52d41853128db000ab8a5c006f5e0f71d591eafe063b2daf2a335",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a financial incentive of ₹5,50,000 to inter‑caste married couples in Karnataka where one spouse belongs to a Scheduled Tribe and the other does not, subject to income and timing conditions.",
+    "eligibility": "The couple must reside in Karnataka, be Hindu, one spouse must belong to the Scheduled Tribe (ST) and the other must belong to a community other than ST (specifically Scheduled Caste), the combined annual income must be less than ₹5,00,000, the application must be made within 18 months of marriage, and the marriage should have taken place on or after 7 February 2019.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 500000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "ST",
+      "SC"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4170,
+      "reset_tokens_seconds": 28.725
+    },
+    "_verified_at": "2026-09-13T08:04:15.144112+00:00"
+  }
+}

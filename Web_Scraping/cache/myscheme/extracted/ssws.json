@@ -1,0 +1,32 @@
+{
+  "_input_hash": "c4509606327a9af08c79d8d8717f3c448d96bcae51fed29cb21ef9b8edce3054",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "It provides a loan of ₹25,000 and a subsidy of ₹25,000 to widowed, divorced or unmarried women from minority communities in Karnataka for economic activities.",
+    "eligibility": "Female applicants who are widowed, divorced or unmarried, belong to a religious minority community, are permanent residents of Karnataka, aged 18 to 55 years, with annual family income below ₹3,50,000, whose family members are not government employees and who have not availed benefits under any other KMDCL scheme in the last 5 years.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": "female",
+    "income_limit": 350000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Widow",
+      "Minority"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2631,
+      "reset_tokens_seconds": 40.267
+    },
+    "_verified_at": "2026-09-13T08:03:10.669256+00:00"
+  }
+}

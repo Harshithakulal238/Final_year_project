@@ -1,0 +1,32 @@
+{
+  "_input_hash": "3826fbebe42c32d68af88b0610937f5ed5fa1e5314d20b74f44d42649f265207",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides women with self‑employment opportunities in trade and services by offering loan subsidies for micro‑enterprise activities such as manufacturing, weaving, and other small businesses.",
+    "eligibility": "Applicants must be women who are permanent residents of Karnataka, aged between 18 and 55 years, with a family income below ₹1,50,000 per year for general and special categories (no income limit for widowed or disabled women), and must not have defaulted on any past loan with any financial institution. Preference is given to the extremely poor, destitute, widows, and physically challenged women, as well as those who have undergone prior skill‑development training.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": "female",
+    "income_limit": 150000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Widow",
+      "Disabled"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4973,
+      "reset_tokens_seconds": 22.702
+    },
+    "_verified_at": "2026-09-13T07:48:31.896514+00:00"
+  }
+}

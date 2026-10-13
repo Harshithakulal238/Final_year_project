@@ -1,0 +1,29 @@
+{
+  "_input_hash": "dca7731d1d002fb7c5d1f725c8e3b3666e1a817746ab49406dea5e18b1b410e4",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "An initiative by the Karnataka Minority Development Corporation to promote self‑employment and economic activities among minority communities by providing financial assistance to eligible individuals to start or expand their economic activities.",
+    "eligibility": "The applicant must belong to a religious minority community as defined in the Government Order, be a permanent resident of Karnataka, be between 18 and 55 years of age, have a family annual income less than ₹1,03,000 in urban areas or less than ₹81,000 in rural areas, have no family member employed by State/Central/Government PSU, and not have availed benefits under any other KMDCL scheme (excluding the Arivu Scheme) in the last 5 years.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 81000,
+    "income_limit_urban": 103000,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3089,
+      "reset_tokens_seconds": 36.832
+    },
+    "_verified_at": "2026-09-13T07:56:32.634512+00:00"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "_input_hash": "ae2f26ad140195c3b62cd543859181785b6ddd9b4da64f70d1b6f5871c02472f",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides interest subsidy on loans to SC/ST entrepreneurs for establishing or expanding micro or small‑scale service enterprises, with loan amounts ranging from ₹20 lakh to ₹1,000 lakh at an effective interest rate of 4%.",
+    "eligibility": "The unit must be fully owned by SC/ST entrepreneurs; all promoters in proprietary, partnership or company must belong to the SC/ST community. Units with any shareholding by non‑SC/ST persons are ineligible. Applicants must not have availed interest subsidy under any other Karnataka or central government scheme, must not be in default on repayments to KSFC, and the loan amount eligible for subsidy is up to ₹1,000 lakh.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC",
+      "ST"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2669,
+      "reset_tokens_seconds": 39.982
+    },
+    "_verified_at": "2026-09-13T08:09:41.619011+00:00"
+  }
+}

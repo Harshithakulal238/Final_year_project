@@ -1,0 +1,31 @@
+{
+  "_input_hash": "ed2ffe59823a5179a194d8fc56ee52d743e1152dcbdb748aec3a46b4cc4e71cc",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme aims to upgrade the skills of artisans in leather technology, footwear/leather goods making, and designing by sending them for advanced training at renowned institutions like CFTI Chennai, CLRI, and Karnataka Institute of Leather Technology.",
+    "eligibility": "Applicants must be leather artisans belonging to specified sub‑castes among scheduled castes, have passed SSLC/PUC/Degree, be at least 18 years old, have an annual family income not exceeding ₹30,000 in rural areas and ₹25,000 in urban areas, and must not have received benefits from other schemes (except training) or have family members employed in government or semi‑government organisations.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 30000,
+    "income_limit_urban": 25000,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": "10th Pass",
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4714,
+      "reset_tokens_seconds": 24.645
+    },
+    "_verified_at": "2026-09-13T07:57:30.506402+00:00"
+  }
+}

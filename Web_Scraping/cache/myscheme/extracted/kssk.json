@@ -1,0 +1,31 @@
+{
+  "_input_hash": "8f004fc39201fdc43fa8a03fe9ae9fe3ce934a2a9854e2ccafae8a0c7072ed9c",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The Kayaka Spoorthi Scheme provides financial assistance to women Self-Help Groups (SHGs) engaged in the leather industry to enable them to start or expand business activities related to leatherwork.",
+    "eligibility": "A Self-Help Group must have at least 10 female artisans; the applicant must belong to specified sub‑castes among scheduled castes; the applicant must be at least 18 years old; annual family income must not exceed ₹30,000 in rural areas and ₹25,000 in urban areas; the applicant or family must not have received benefits from other schemes except training programs; family members must not be employed in government or semi‑government organizations.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": "female",
+    "income_limit": null,
+    "income_limit_rural": 30000,
+    "income_limit_urban": 25000,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3995,
+      "reset_tokens_seconds": 30.037
+    },
+    "_verified_at": "2026-09-13T08:10:43.418200+00:00"
+  }
+}

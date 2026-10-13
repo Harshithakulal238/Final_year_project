@@ -1,0 +1,31 @@
+{
+  "_input_hash": "932ba043c7a6d1fc3ce60a37e7550ea1b44029084499be24dcdc071204a7f6bc",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a financial incentive of ₹50,000 to Scheduled Tribe individuals residing in Karnataka who marry another Scheduled Tribe individual, aiming to reduce marriage expenses, prevent dowry, and promote a more accepting society.",
+    "eligibility": "Both partners must reside in Karnataka, belong to the Scheduled Tribe community, have a combined annual income less than ₹2,00,000, the marriage must have taken place on or after 11 August 2015, and the application must be submitted within one year of marriage.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": 200000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "ST"
+    ],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3936,
+      "reset_tokens_seconds": 30.48
+    },
+    "_verified_at": "2026-09-13T07:53:56.377867+00:00"
+  }
+}

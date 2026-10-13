@@ -1,0 +1,29 @@
+{
+  "_input_hash": "80dca5e00a2adf398eb207d4f761ae9190afe11983af3cd08cba8bc6f757b34c",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to small cardamom growers for installing approved irrigation equipment, aiming to increase productivity and improve the quality of small cardamom.",
+    "eligibility": "Applicants must be registered small cardamom growers from Kerala, Tamil Nadu or Karnataka, possessing land holdings of 0.10–8 ha for gravity irrigation equipment and IP sets or 0.4–8 ha for sprinkler/drip/micro‑sprinkler sets, and must install the approved equipment which must be inspected and certified as eligible by designated officials.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "farmer",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3558,
+      "reset_tokens_seconds": 33.314
+    },
+    "_verified_at": "2026-09-13T08:12:01.841365+00:00"
+  }
+}

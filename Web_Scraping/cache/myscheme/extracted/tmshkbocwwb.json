@@ -1,0 +1,29 @@
+{
+  "_input_hash": "bd947f904d1598dd42cd52aecf628ea17cde8f72314f73c0cb02e124669ec236",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to registered women construction workers for pre‑school education and nutritional support of their child for up to three years after delivery, covering up to two children.",
+    "eligibility": "The applicant must be a registered woman construction worker under the Building and Other Construction Workers Welfare Board of Karnataka, engaged in building or construction work for at least 90 days in a year, be at least 18 years old, and the benefit is available for children under three years of age for the first two children.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": "female",
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "unorganised",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4173,
+      "reset_tokens_seconds": 28.702
+    },
+    "_verified_at": "2026-09-13T08:07:27.316282+00:00"
+  }
+}

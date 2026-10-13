@@ -1,0 +1,31 @@
+{
+  "_input_hash": "25f43b078022363a57cb9d002f1053e4e6cd72fe6dc2ca20519db33708deae95",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides subsidies to members of state religious minority communities to start or improve small‑scale handicraft, service sector, and agro‑based activities, with support from nationalized or scheduled banks.",
+    "eligibility": "Applicants must belong to the State Religious Minority Community, be a permanent resident of the State, be aged between 18 and 55 years, have a family annual income not exceeding Rs 81,000 in rural areas and Rs 1,03,000 in urban areas, have no family member employed by a State/Central/Government PSU, and must not have previously availed a loan from KMDC.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 81000,
+    "income_limit_urban": 103000,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [
+      "Minority"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4160,
+      "reset_tokens_seconds": 28.799
+    },
+    "_verified_at": "2026-09-13T07:50:33.813760+00:00"
+  }
+}

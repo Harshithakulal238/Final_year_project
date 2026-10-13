@@ -1,0 +1,29 @@
+{
+  "_input_hash": "09622cf71ad752d9a88d8d2aff13cd0cd5bf2def8d190fba6541967e3fc68e25",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance in the form of loans and subsidies to minority community members engaged in silk reeling and spinning, aiming to improve their working capital, infrastructure, productivity and economic stability.",
+    "eligibility": "Applicant must belong to the religious minority category of the state, be a permanent resident of Karnataka, be aged between 18 and 55 years, have family income not exceeding ₹6,00,000 per annum, have no family member employed by State/Central Government, not have availed any loan/subsidy from the Corporation in the last 5 years (except Arivu education loan and Foreign Education Loan Scheme), and not be a sustainer of the corporation.",
+    "age_min": 18,
+    "age_max": 55,
+    "gender": null,
+    "income_limit": 600000,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": true,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 4398,
+      "reset_tokens_seconds": 27.015
+    },
+    "_verified_at": "2026-09-13T07:51:36.462539+00:00"
+  }
+}

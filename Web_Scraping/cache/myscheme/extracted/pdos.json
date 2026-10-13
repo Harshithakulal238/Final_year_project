@@ -1,0 +1,34 @@
+{
+  "_input_hash": "0c0f2dc623be3d519a71bec7ee7f5dba698ca2962a30ec93207efb1c11725dc4",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides financial assistance to SC/ST students to pursue undergraduate, postgraduate and PhD programmes overseas across a wide range of fields, with scholarship amounts varying from 33% to 100% based on family income.",
+    "eligibility": "Applicants must be permanent residents of Karnataka with a valid passport, be aged 21 or younger for undergraduate courses or 35 or younger for postgraduate and PhD courses, have at least 80% marks in PUC/12th (undergraduate) or 55% in the qualifying degree (postgraduate/PhD), have cleared GRE/GMAT/TOEFL/IELTS, secured admission to a full‑time overseas degree programme, and meet the scheme’s income‑based criteria.",
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [
+      "SC",
+      "ST"
+    ],
+    "occupation": "student",
+    "district": null,
+    "education": "12th Pass",
+    "special_conditions": [
+      "Disabled"
+    ],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2973,
+      "reset_tokens_seconds": 37.702
+    },
+    "_verified_at": "2026-09-13T07:55:15.184909+00:00"
+  }
+}

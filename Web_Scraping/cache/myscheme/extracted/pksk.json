@@ -1,0 +1,31 @@
+{
+  "_input_hash": "6b364b4a738f328f45040db7ae8744e7ed040f69b8f182a7a86835ea7424baf1",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": "The scheme provides a steel-made kiosk and a tool kit free of cost to roadside cobblers engaged in repair work or footwear production, promoting self‑employment.",
+    "eligibility": "Applicants must be leather artisans belonging to specified sub‑castes of the Scheduled Castes, be at least 18 years old, have an annual family income not exceeding ₹30,000 in rural areas or ₹25,000 in urban areas, must not have received benefits from other schemes (except training programmes), and their family members must not be employed in government or semi‑government organisations.",
+    "age_min": 18,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": 30000,
+    "income_limit_urban": 25000,
+    "caste_restriction": [
+      "SC"
+    ],
+    "occupation": "self-employed",
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": false,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 3784,
+      "reset_tokens_seconds": 31.62
+    },
+    "_verified_at": "2026-09-13T08:00:15.388322+00:00"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "_input_hash": "3521b6363fdcea82d0945d66063f268f5c4aa2584c2d6b3cc46b42ec226fad2f",
+  "_prompt_version": "fbf499a688a411d7",
+  "llm_fields": {
+    "description": null,
+    "eligibility": null,
+    "age_min": null,
+    "age_max": null,
+    "gender": null,
+    "income_limit": null,
+    "income_limit_rural": null,
+    "income_limit_urban": null,
+    "caste_restriction": [],
+    "occupation": null,
+    "district": null,
+    "education": null,
+    "special_conditions": [],
+    "ration_card_type": [],
+    "minority_community_required": false,
+    "disability_required": false,
+    "source_mismatch": true,
+    "_extraction_error": null,
+    "_rate_limit": {
+      "remaining_tokens": 2718,
+      "reset_tokens_seconds": 39.615
+    },
+    "_verified_at": "2026-09-13T08:04:51.422842+00:00"
+  }
+}
