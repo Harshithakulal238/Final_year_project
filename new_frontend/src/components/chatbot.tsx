@@ -40,16 +40,17 @@ export function Chatbot() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: next.map((m) => ({ role: m.role, content: m.content })),
+          messages: next.slice(-10).map((m) => ({ role: m.role, content: m.content })),
         }),
       });
       if (!res.ok) {
+        const errorBody = (await res.json().catch(() => null)) as { message?: string } | null;
         const errText =
           res.status === 429
             ? t("chatbot.errRateLimited")
             : res.status === 402
               ? t("chatbot.errNoCredits")
-              : t("chatbot.errGeneric");
+              : errorBody?.message?.trim() || t("chatbot.errGeneric");
         setMessages((m) => [...m, { role: "assistant", content: errText }]);
       } else {
         const data = (await res.json()) as { reply?: string };

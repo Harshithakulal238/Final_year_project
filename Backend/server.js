@@ -1,6 +1,9 @@
 import express from 'express';
 
 import crypto from 'crypto';
+import { spawn } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import dotenv from 'dotenv';
 
@@ -20,6 +23,11 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 5000;
+const chatbotScript = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  'chatbot',
+  'chatbot.py',
+);
 
  
 
@@ -45,7 +53,7 @@ app.use((req, res, next) => {
 
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
 
   if (req.method === 'OPTIONS') return res.sendStatus(204);
 
@@ -293,6 +301,136 @@ async function getUserCollection(db) {
 function firstText(...values) {
   return values.find((value) => typeof value === 'string' && value.trim())?.trim() || '';
 }
+
+function runChatbot(payload) {
+  return new Promise((resolve, reject) => {
+    const pythonBinary = process.env.PYTHON_BIN || 'python';
+    const child = spawn(pythonBinary, [chatbotScript], {
+      cwd: path.dirname(chatbotScript),
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+    let stdout = '';
+    let stderr = '';
+    let timedOut = false;
+    let outputTooLarge = false;
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      child.kill();
+    }, 55000);
+
+    child.stdout.on('data', (chunk) => {
+      stdout += chunk.toString();
+      if (stdout.length > 1024 * 1024) {
+        outputTooLarge = true;
+        child.kill();
+      }
+    });
+    child.stderr.on('data', (chunk) => {
+      stderr += chunk.toString();
+    });
+    child.on('error', (error) => {
+      clearTimeout(timeout);
+      reject(error);
+    });
+    child.on('close', (code) => {
+      clearTimeout(timeout);
+      if (timedOut) return reject(new Error('Chatbot request timed out'));
+      if (outputTooLarge) return reject(new Error('Chatbot response exceeded the output limit'));
+      if (code !== 0 || !stdout.trim()) {
+        return reject(new Error(stderr.trim() || `Chatbot process exited with code ${code}`));
+      }
+
+      try {
+        const result = JSON.parse(stdout);
+        if (typeof result.reply !== 'string' || !result.reply.trim()) {
+          return reject(new Error('Chatbot returned an invalid response'));
+        }
+        return resolve(result);
+      } catch (error) {
+        return reject(new Error(`Unable to parse chatbot response: ${error.message}`));
+      }
+    });
+    child.stdin.on('error', (error) => {
+      if (error.code !== 'EPIPE') reject(error);
+    });
+    child.stdin.end(JSON.stringify(payload));
+  });
+}
+
+app.post('/api/chat', async (req, res) => {
+  const messages = req.body?.messages;
+  if (!Array.isArray(messages) || messages.length === 0) {
+    return res.status(400).json({ message: 'At least one chat message is required' });
+  }
+
+  const validMessages = messages.filter((message) =>
+    message
+    && ['user', 'assistant'].includes(message.role)
+    && typeof message.content === 'string'
+    && message.content.trim()
+    && message.content.length <= 4000
+  );
+  if (!validMessages.length || validMessages[validMessages.length - 1].role !== 'user') {
+    return res.status(400).json({ message: 'A non-empty user message is required' });
+  }
+  if (!process.env.TEXT_API_KEY) {
+    return res.status(503).json({ message: 'TEXT_API_KEY is not configured on the server' });
+  }
+
+  try {
+    const db = await connectMongo();
+    const schemeCollection = await getSchemeCollection(db);
+    if (!schemeCollection) {
+      return res.status(404).json({ message: 'No scheme collection found in the database' });
+    }
+
+    const schemeRecords = await schemeCollection.find({}).toArray();
+    const schemes = schemeRecords.map((scheme) => ({
+      scheme_name: scheme.scheme_name || scheme.schemeName || scheme.title || scheme.name,
+      source_url: scheme.source_url || scheme.scheme_url || scheme.schemeUrl || scheme.url,
+      summary: scheme.summary,
+      objective: scheme.objective,
+      description: scheme.description,
+      overview: scheme.overview,
+      benefits: scheme.benefits,
+      eligibility: scheme.eligibility,
+      eligibility_criteria: scheme.eligibility_criteria,
+      documents: scheme.documents,
+      documents_required: scheme.documents_required,
+      required_documents: scheme.required_documents,
+      how_to_apply: scheme.how_to_apply,
+      application_process: scheme.application_process,
+      process: scheme.process,
+      category: scheme.category,
+      categories: scheme.categories,
+      scheme_category: scheme.scheme_category,
+      scheme_type: scheme.scheme_type,
+    }));
+    const result = await runChatbot({ messages: validMessages.slice(-10), schemes });
+    return res.json(result);
+  } catch (error) {
+    console.error('Chatbot request failed:', error);
+    if (error.code === 'ENOENT') {
+      return res.status(503).json({ message: 'Python is unavailable; configure PYTHON_BIN on the backend' });
+    }
+    if (error.message === 'Chatbot request timed out') {
+      return res.status(504).json({ message: 'The chatbot took too long to respond. Please try again.' });
+    }
+    if (error.name === 'MongoServerSelectionError' || /server selection timed out/i.test(error.message || '')) {
+      return res.status(503).json({ message: 'Unable to connect to the scheme database. Check MONGODB_URI and database availability.' });
+    }
+    if (/Chat provider returned HTTP 401/.test(error.message || '')) {
+      return res.status(502).json({ message: 'The AI provider rejected TEXT_API_KEY. Check that it is valid and active.' });
+    }
+    if (/Chat provider returned HTTP 429/.test(error.message || '')) {
+      return res.status(429).json({ message: 'The AI provider is rate-limiting requests. Please try again shortly.' });
+    }
+    if (/Chat provider returned HTTP 5\d\d/.test(error.message || '') || error.message === 'Unable to reach the chat provider') {
+      return res.status(502).json({ message: 'The AI provider is temporarily unavailable. Please try again shortly.' });
+    }
+    return res.status(502).json({ message: 'Unable to generate a chatbot response. Check the backend log for the chatbot request error.' });
+  }
+});
 
 app.get('/api/schemes', async (_req, res) => {
   try {
