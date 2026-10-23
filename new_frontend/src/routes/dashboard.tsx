@@ -37,7 +37,7 @@ function DashboardPage() {
   const navigate = useNavigate();
   const { profile, hydrated, isAuthed } = useSession();
   const { t } = useLanguage();
-  const [topPicks, setTopPicks] = useState<Recommendation[]>([]);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [topPicksLoaded, setTopPicksLoaded] = useState(false);
 
   useEffect(() => {
@@ -53,10 +53,10 @@ function DashboardPage() {
 
     setTopPicksLoaded(false);
     void getRecommendations(user.id)
-      .then((response) => setTopPicks((response.recommendedSchemes ?? []).slice(0, 3)))
+      .then((response) => setRecommendations(response.recommendedSchemes ?? []))
       .catch((error) => {
         console.error("Unable to load dashboard top picks:", error);
-        setTopPicks([]);
+        setRecommendations([]);
       })
       .finally(() => setTopPicksLoaded(true));
   }, [hydrated, isAuthed, profile]);
@@ -64,7 +64,8 @@ function DashboardPage() {
   if (!hydrated || !profile) return null;
 
   const firstName = (profile.name || "friend").split(" ")[0];
-  const eligibleCount = topPicks.length;
+  const eligibleCount = recommendations.length;
+  const topPicks = recommendations.slice(0, 3);
   const topPick = topPicks[0] ? { score: Math.round(topPicks[0].finalScore * 100) } : null;
   const profileComplete = !!(profile.name && profile.dob && profile.occupation);
   const age = profile.dob ? getAge(profile.dob) : 0;
@@ -101,28 +102,19 @@ function DashboardPage() {
             <p className="mt-3 max-w-xl text-sm text-teal-100/90 sm:text-base">
               {profileComplete
                 ? t("dashboard.matchCount", {
-                    count: topPicks.length,
-                    suffix: topPicks.length === 1 ? "" : "s",
+                    count: eligibleCount,
+                    suffix: eligibleCount === 1 ? "" : "s",
                   })
                 : t("dashboard.completeProfilePrompt")}
             </p>
 
-            <div className="mt-6 grid gap-3 sm:grid-cols-3 sm:gap-4">
+            <div className="mt-6 grid gap-2 sm:grid-cols-2 sm:gap-4">
               <MiniStat
                 label={t("dashboard.statEligibleSchemes")}
-                value={profileComplete ? String(eligibleCount) : "—"}
+                value={profileComplete && topPicksLoaded ? String(eligibleCount) : "—"}
                 icon={<CheckCircle2 className="h-4 w-4" />}
               />
-              <MiniStat
-                label={t("dashboard.statTopMatchScore")}
-                value={topPick ? `${topPick.score}/100` : "—"}
-                icon={<Sparkles className="h-4 w-4" />}
-              />
-              <MiniStat
-                label={t("dashboard.statConfidence")}
-                value={conf ? `${conf.level} · ${conf.pct}%` : "—"}
-                icon={<ShieldCheck className="h-4 w-4" />}
-              />
+              
             </div>
           </div>
         </section>
