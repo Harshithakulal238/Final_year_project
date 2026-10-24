@@ -38,6 +38,9 @@ export type SchemeCatalogItem = {
   name: string;
   description: string;
   benefits: string;
+  eligibility: string;
+  documents: string;
+  applicationProcess: string;
   category: string;
   ministry: string;
   sourceUrl: string;

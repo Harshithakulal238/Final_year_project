@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { ExternalLink, Search } from "lucide-react";
+import {
+  ArrowUpRight,
+  CheckCircle2,
+  ClipboardList,
+  FileText,
+  Gift,
+  Search,
+  ShieldCheck,
+} from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,7 +29,7 @@ export const Route = createFileRoute("/allschemes")({
 });
 
 function AllSchemesPage() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const isKannada = lang === "kn";
   const [schemes, setSchemes] = useState<SchemeCatalogItem[]>([]);
   const [search, setSearch] = useState("");
@@ -145,28 +153,37 @@ function AllSchemesPage() {
                     ""
                   : scheme.description;
                 const benefits = isKannada ? kannada?.benefits || "" : scheme.benefits;
+                const eligibility = isKannada
+                  ? kannada?.eligibility || kannada?.eligibility_criteria || ""
+                  : scheme.eligibility;
+                const documents = isKannada
+                  ? kannada?.documents_required || kannada?.required_documents || ""
+                  : scheme.documents;
+                const applicationProcess = isKannada
+                  ? kannada?.application_process || kannada?.how_to_apply || kannada?.process || ""
+                  : scheme.applicationProcess;
 
                 return (
                   <article
                     key={scheme.id}
-                    className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                    className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
                   >
-                    <div className="flex flex-wrap items-start justify-between gap-4">
-                      <div className="min-w-0 flex-1">
-                        {category && <Badge variant="secondary">{category}</Badge>}
+                    <div className="flex flex-wrap items-start justify-between gap-4 bg-gradient-to-br from-teal-50 to-white px-6 py-5">
+                      <div className="min-w-0">
+                        {category && (
+                          <Badge className="border border-teal-200 bg-white text-teal-800 hover:bg-white">
+                            {category}
+                          </Badge>
+                        )}
                         {name && (
-                          <h2 className="mt-2 text-xl font-semibold text-slate-950">{name}</h2>
+                          <h2 className="mt-2 text-xl font-semibold tracking-tight text-slate-950">
+                            {name}
+                          </h2>
                         )}
-                        {ministry && <p className="mt-1 text-sm text-slate-500">{ministry}</p>}
-                        {description && (
-                          <p className="mt-3 text-sm leading-6 text-slate-600">{description}</p>
-                        )}
-                        {benefits && benefits !== description && (
-                          <p className="mt-2 text-sm leading-6 text-slate-600">
-                            {!isKannada && (
-                              <span className="font-semibold text-slate-800">Benefits: </span>
-                            )}
-                            {benefits}
+                        {ministry && (
+                          <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-600">
+                            <ShieldCheck className="h-4 w-4 shrink-0 text-teal-700" />
+                            {ministry}
                           </p>
                         )}
                       </div>
@@ -175,10 +192,39 @@ function AllSchemesPage() {
                           href={scheme.sourceUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline"
+                          className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-teal-200 bg-white px-3 py-2 text-sm font-medium text-teal-800 transition-colors hover:bg-teal-50"
                         >
-                          Official details <ExternalLink className="h-4 w-4" />
+                          {t("allschemes.officialDetails")} <ArrowUpRight className="h-4 w-4" />
                         </a>
+                      )}
+                    </div>
+                    <div className="grid gap-4 p-5 sm:p-6">
+                      {description && (
+                        <SchemeSection title={t("allschemes.summary")} icon={<FileText />}>
+                          <p className="whitespace-pre-line text-sm leading-7 text-slate-700">
+                            {description}
+                          </p>
+                        </SchemeSection>
+                      )}
+                      {benefits && benefits !== description && (
+                        <SchemeSection title={t("allschemes.benefits")} icon={<Gift />}>
+                          <ContentList content={benefits} />
+                        </SchemeSection>
+                      )}
+                      {eligibility && (
+                        <SchemeSection title={t("allschemes.eligibility")} icon={<CheckCircle2 />}>
+                          <ContentList content={eligibility} />
+                        </SchemeSection>
+                      )}
+                      {documents && (
+                        <SchemeSection title={t("allschemes.documents")} icon={<ClipboardList />}>
+                          <ContentList content={documents} splitCommas />
+                        </SchemeSection>
+                      )}
+                      {applicationProcess && (
+                        <SchemeSection title={t("allschemes.application")} icon={<ArrowUpRight />}>
+                          <ApplicationSteps content={applicationProcess} />
+                        </SchemeSection>
                       )}
                     </div>
                   </article>
@@ -213,6 +259,92 @@ function AllSchemesPage() {
           </>
         )}
       </main>
+    </div>
+  );
+}
+
+function SchemeSection({
+  title,
+  icon,
+  children,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rounded-xl border border-slate-200 bg-slate-50/70 p-4 sm:p-5">
+      <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+        <span className="text-teal-700 [&>svg]:h-4 [&>svg]:w-4">{icon}</span>
+        {title}
+      </h3>
+      <div className="mt-3">{children}</div>
+    </section>
+  );
+}
+
+function ContentList({ content, splitCommas = false }: { content: string; splitCommas?: boolean }) {
+  const items = content
+    .split(splitCommas ? /[,;\n•]+/ : /[;\n•]+|(?<=[.!?])\s+(?=[A-Z0-9])/)
+    .map((item) => item.trim().replace(/^[\s\-*]+/, ""))
+    .filter(Boolean);
+
+  if (items.length < 2) {
+    return <p className="whitespace-pre-line text-sm leading-7 text-slate-700">{content}</p>;
+  }
+
+  return (
+    <ul className="grid gap-2 sm:grid-cols-2">
+      {items.map((item, index) => (
+        <li
+          key={`${index}-${item}`}
+          className="flex items-start gap-2 text-sm leading-6 text-slate-700"
+        >
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-600" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ApplicationSteps({ content }: { content: string }) {
+  const modes = content
+    .split(/(?=(?:Offline|Online):\s*)/i)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  const grouped = modes.map((mode) => {
+    const label = mode.match(/^(Offline|Online):\s*/i)?.[1];
+    const body = mode.replace(/^(?:Offline|Online):\s*/i, "").replace(/\s*\|\s*/g, " ");
+    const steps = body
+      .split(/(?=Step\s+\d+\s*:|\d+\.\s+)/i)
+      .map((step) => step.trim().replace(/^(?:Step\s+\d+\s*:\s*|\d+\.\s*)/i, ""))
+      .filter(Boolean);
+
+    return { label, steps: steps.length ? steps : [body] };
+  });
+
+  return (
+    <div className="space-y-4">
+      {grouped.map((group, groupIndex) => (
+        <div key={`${group.label || "steps"}-${groupIndex}`}>
+          {group.label && (
+            <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-teal-800">
+              {group.label}
+            </h4>
+          )}
+          <ol className="space-y-3">
+            {group.steps.map((step, index) => (
+              <li key={`${index}-${step}`} className="flex items-start gap-3">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-100 text-xs font-semibold text-teal-800">
+                  {index + 1}
+                </span>
+                <span className="pt-0.5 text-sm leading-6 text-slate-700">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
     </div>
   );
 }
