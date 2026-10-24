@@ -4,7 +4,13 @@ import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser, useSession } from "@/lib/profile-store";
 import { confidenceScore, getAge } from "@/lib/eligibility";
-import { getRecommendations, type Recommendation } from "@/lib/api/recommendations";
+import {
+  getLocalizedEligibilityReason,
+  getLocalizedRuleName,
+  getLocalizedSchemeText,
+  getRecommendations,
+  type Recommendation,
+} from "@/lib/api/recommendations";
 import {
   ArrowRight,
   Compass,
@@ -36,7 +42,7 @@ export const Route = createFileRoute("/dashboard")({
 function DashboardPage() {
   const navigate = useNavigate();
   const { profile, hydrated, isAuthed } = useSession();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [topPicksLoaded, setTopPicksLoaded] = useState(false);
 
@@ -177,10 +183,38 @@ function DashboardPage() {
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-wider text-teal-700">#{index + 1} · {Math.round(recommendation.finalScore * 100)}% match</p>
-                        <h3 className="mt-1 font-semibold text-slate-900">{recommendation.schemeName}</h3>
-                        <p className="mt-1 text-xs text-slate-600">{recommendation.explanation.find((line) => line.startsWith("Why are you eligible?"))?.replace("Why are you eligible?", "").trim()}</p>
-                        <p className="mt-1 text-xs text-slate-600">Matched fields: {recommendation.matchedRules.join(", ") || "None"}</p>
-                        <p className="mt-2 text-sm leading-5 text-slate-600"><span className="font-semibold text-slate-800">About this Scheme: </span>{aboutScheme(recommendation.explanation)}</p>
+                        <h3 className="mt-1 font-semibold text-slate-900">
+                          {getLocalizedSchemeText(
+                            recommendation.translations,
+                            lang,
+                            ["scheme_name"],
+                            recommendation.schemeName,
+                          )}
+                        </h3>
+                        <p className="mt-1 text-xs text-slate-600">
+                          {recommendation.explanation
+                            .find((line) => line.startsWith("Why are you eligible?"))
+                            ?.replace("Why are you eligible?", "")
+                            .trim()
+                            .split("; ")
+                            .map((reason) => getLocalizedEligibilityReason(reason, t))
+                            .join("; ")}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-600">
+                          {t("results.verifiedMatchedFields")}{" "}
+                          {recommendation.matchedRules
+                            .map((rule) => getLocalizedRuleName(rule, t))
+                            .join(", ") || "None"}
+                        </p>
+                        <p className="mt-2 text-sm leading-5 text-slate-600">
+                          <span className="font-semibold text-slate-800">About this Scheme: </span>
+                          {getLocalizedSchemeText(
+                            recommendation.translations,
+                            lang,
+                            ["objective", "description", "overview", "benefits"],
+                            recommendation.description || aboutScheme(recommendation.explanation),
+                          )}
+                        </p>
                       </div>
                       {recommendation.sourceUrl && <a href={recommendation.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline">Details <ExternalLink className="h-3.5 w-3.5" /></a>}
                     </div>

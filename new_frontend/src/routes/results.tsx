@@ -5,12 +5,20 @@ import { SiteHeader } from "@/components/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser, loadProfile } from "@/lib/profile-store";
-import { getRecommendations, type Recommendation } from "@/lib/api/recommendations";
+import {
+  getLocalizedEligibilityReason,
+  getLocalizedRuleName,
+  getLocalizedSchemeText,
+  getRecommendations,
+  type Recommendation,
+} from "@/lib/api/recommendations";
+import { useLanguage } from "@/lib/i18n";
 
 export const Route = createFileRoute("/results")({ component: ResultsPage });
 
 function ResultsPage() {
   const navigate = useNavigate();
+  const { lang, t } = useLanguage();
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -50,11 +58,45 @@ function ResultsPage() {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0 flex-1">
               <p className="text-xs font-semibold uppercase tracking-widest text-teal-700">Hybrid rank #{index + 1}</p>
-              <h2 className="mt-1 text-xl font-semibold text-slate-950">{recommendation.schemeName}</h2>
-              <p className="mt-4 text-sm font-semibold text-slate-800">Verified matched fields:</p>
-              <div className="mt-2 flex flex-wrap gap-2">{recommendation.matchedRules.filter((rule) => rule !== "None").map((rule) => <Badge key={rule} className="bg-teal-50 text-teal-800 hover:bg-teal-50"><CheckCircle2 className="mr-1 h-3.5 w-3.5" />{rule}</Badge>)}</div>
-              <p className="mt-4 text-sm leading-6 text-slate-600"><span className="font-semibold text-slate-800">Why recommended: </span>{whyRecommended(recommendation.explanation)}</p>
-              <p className="mt-2 text-sm leading-6 text-slate-600"><span className="font-semibold text-slate-800">About this scheme: </span>{aboutScheme(recommendation.explanation)}</p>
+              <h2 className="mt-1 text-xl font-semibold text-slate-950">
+                {getLocalizedSchemeText(
+                  recommendation.translations,
+                  lang,
+                  ["scheme_name"],
+                  recommendation.schemeName,
+                )}
+              </h2>
+              <p className="mt-4 text-sm font-semibold text-slate-800">
+                {t("results.verifiedMatchedFields")}
+              </p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {recommendation.matchedRules
+                  .filter((rule) => rule !== "None")
+                  .map((rule) => (
+                    <Badge
+                      key={rule}
+                      className="bg-teal-50 text-teal-800 hover:bg-teal-50"
+                    >
+                      <CheckCircle2 className="mr-1 h-3.5 w-3.5" />
+                      {getLocalizedRuleName(rule, t)}
+                    </Badge>
+                  ))}
+              </div>
+              <p className="mt-4 text-sm leading-6 text-slate-600">
+                <span className="font-semibold text-slate-800">
+                  {t("results.whyRecommended")}{" "}
+                </span>
+                {whyRecommended(recommendation.explanation, t)}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                <span className="font-semibold text-slate-800">About this scheme: </span>
+                {getLocalizedSchemeText(
+                  recommendation.translations,
+                  lang,
+                  ["objective", "description", "overview", "benefits"],
+                  recommendation.description || aboutScheme(recommendation.explanation),
+                )}
+              </p>
             </div>
             <div className="rounded-xl bg-teal-50 px-4 py-3 text-center text-teal-900"><div className="text-2xl font-bold">{Math.round(recommendation.finalScore * 100)}%</div><div className="text-xs font-medium uppercase tracking-wide">Hybrid match</div></div>
           </div>
@@ -66,4 +108,16 @@ function ResultsPage() {
 }
 
 function aboutScheme(explanation: string[]) { const purpose = explanation.find((line) => line.startsWith("What is this scheme?")); return purpose ? purpose.replace("What is this scheme?", "").trim() : "A description was not captured in the scheme data."; }
-function whyRecommended(explanation: string[]) { const reason = explanation.find((line) => line.startsWith("Why are you eligible?")); return reason ? reason.replace("Why are you eligible?", "").trim() : "Your verified profile matches this scheme."; }
+function whyRecommended(
+  explanation: string[],
+  t: (key: import("@/lib/i18n").TranslationKey, vars?: Record<string, string | number>) => string,
+) {
+  const reason = explanation.find((line) => line.startsWith("Why are you eligible?"));
+  if (!reason) return "Your verified profile matches this scheme.";
+  return reason
+    .replace("Why are you eligible?", "")
+    .trim()
+    .split("; ")
+    .map((item) => getLocalizedEligibilityReason(item, t))
+    .join("; ");
+}

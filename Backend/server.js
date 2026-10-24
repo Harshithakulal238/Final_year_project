@@ -224,7 +224,8 @@ function buildRecommendationRecord(user, scheme, ruleEvaluation) {
     schemeName: scheme.scheme_name || scheme.schemeName || scheme.name || 'Unknown Scheme',
 
     sourceUrl: scheme.source_url || scheme.url || scheme.schemeUrl || '',
-
+    description: purpose || '',
+    translations: { kn: scheme.translations?.kn || {} },
     ruleScore: Number(ruleEvaluation.ruleScore || 0),
 
     decisionTreeScore: null,
@@ -450,6 +451,7 @@ app.get('/api/schemes', async (_req, res) => {
         category: firstText(scheme.category, scheme.scheme_category, scheme.scheme_type),
         ministry: firstText(scheme.ministry, scheme.implementing_agency),
         sourceUrl: firstText(scheme.source_url, scheme.url, scheme.schemeUrl, scheme.scheme_url),
+        translations: { kn: scheme.translations?.kn || {} },
       })),
     });
   } catch (error) {

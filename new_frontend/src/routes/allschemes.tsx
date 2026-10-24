@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getSchemes, type SchemeCatalogItem } from "@/lib/api/recommendations";
+import { useLanguage } from "@/lib/i18n";
 
 const PAGE_SIZE = 10;
 
@@ -20,6 +21,8 @@ export const Route = createFileRoute("/allschemes")({
 });
 
 function AllSchemesPage() {
+  const { lang } = useLanguage();
+  const isKannada = lang === "kn";
   const [schemes, setSchemes] = useState<SchemeCatalogItem[]>([]);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -125,43 +128,62 @@ function AllSchemesPage() {
             </p>
 
             <div className="mt-4 grid gap-4">
-              {visibleSchemes.map((scheme) => (
-                <article
-                  key={scheme.id}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-                >
-                  <div className="flex flex-wrap items-start justify-between gap-4">
-                    <div className="min-w-0 flex-1">
-                      {scheme.category && <Badge variant="secondary">{scheme.category}</Badge>}
-                      <h2 className="mt-2 text-xl font-semibold text-slate-950">{scheme.name}</h2>
-                      {scheme.ministry && (
-                        <p className="mt-1 text-sm text-slate-500">{scheme.ministry}</p>
-                      )}
-                      {scheme.description && (
-                        <p className="mt-3 text-sm leading-6 text-slate-600">
-                          {scheme.description}
-                        </p>
-                      )}
-                      {scheme.benefits && scheme.benefits !== scheme.description && (
-                        <p className="mt-2 text-sm leading-6 text-slate-600">
-                          <span className="font-semibold text-slate-800">Benefits: </span>
-                          {scheme.benefits}
-                        </p>
+              {visibleSchemes.map((scheme) => {
+                const kannada = scheme.translations?.kn;
+                const name = isKannada ? kannada?.scheme_name || "" : scheme.name;
+                const category = isKannada
+                  ? kannada?.category || kannada?.scheme_category || kannada?.scheme_type || ""
+                  : scheme.category;
+                const ministry = isKannada
+                  ? kannada?.ministry || kannada?.implementing_agency || ""
+                  : scheme.ministry;
+                const description = isKannada
+                  ? kannada?.objective ||
+                    kannada?.description ||
+                    kannada?.overview ||
+                    kannada?.benefits ||
+                    ""
+                  : scheme.description;
+                const benefits = isKannada ? kannada?.benefits || "" : scheme.benefits;
+
+                return (
+                  <article
+                    key={scheme.id}
+                    className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <div className="min-w-0 flex-1">
+                        {category && <Badge variant="secondary">{category}</Badge>}
+                        {name && (
+                          <h2 className="mt-2 text-xl font-semibold text-slate-950">{name}</h2>
+                        )}
+                        {ministry && <p className="mt-1 text-sm text-slate-500">{ministry}</p>}
+                        {description && (
+                          <p className="mt-3 text-sm leading-6 text-slate-600">{description}</p>
+                        )}
+                        {benefits && benefits !== description && (
+                          <p className="mt-2 text-sm leading-6 text-slate-600">
+                            {!isKannada && (
+                              <span className="font-semibold text-slate-800">Benefits: </span>
+                            )}
+                            {benefits}
+                          </p>
+                        )}
+                      </div>
+                      {scheme.sourceUrl && (
+                        <a
+                          href={scheme.sourceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline"
+                        >
+                          Official details <ExternalLink className="h-4 w-4" />
+                        </a>
                       )}
                     </div>
-                    {scheme.sourceUrl && (
-                      <a
-                        href={scheme.sourceUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:underline"
-                      >
-                        Official details <ExternalLink className="h-4 w-4" />
-                      </a>
-                    )}
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
 
             {pageCount > 1 && (

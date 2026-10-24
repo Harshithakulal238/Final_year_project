@@ -1,4 +1,5 @@
 import { api } from "./client";
+import type { Lang, TranslationKey } from "@/lib/i18n";
 
 const RECOMMENDATION_API_URL = (
   // In development, use Vite's same-origin proxy just like the existing
@@ -10,6 +11,8 @@ const RECOMMENDATION_API_URL = (
 
 export type Recommendation = {
   schemeName: string;
+  description?: string;
+  translations?: SchemeTranslations;
   sourceUrl: string;
   ruleScore: number;
   decisionTreeScore: number;
@@ -26,6 +29,10 @@ export type Recommendation = {
   explanation: string[];
 };
 
+export type SchemeTranslations = {
+  kn?: Record<string, string>;
+};
+
 export type SchemeCatalogItem = {
   id: string;
   name: string;
@@ -34,7 +41,66 @@ export type SchemeCatalogItem = {
   category: string;
   ministry: string;
   sourceUrl: string;
+  translations?: SchemeTranslations;
 };
+
+export function getLocalizedSchemeText(
+  translations: SchemeTranslations | undefined,
+  lang: Lang,
+  fields: string[],
+  fallback: string,
+) {
+  if (lang === "kn") {
+    for (const field of fields) {
+      const value = translations?.kn?.[field];
+      if (typeof value === "string" && value.trim()) return value;
+    }
+  }
+
+  return fallback;
+}
+
+type Translate = (
+  key: TranslationKey,
+  vars?: Record<string, string | number>,
+) => string;
+
+const ruleNameKeys: Record<string, TranslationKey> = {
+  Age: "results.ruleAge",
+  Gender: "results.ruleGender",
+  Income: "results.ruleIncome",
+  Caste: "results.ruleCaste",
+  "Minority Community": "results.ruleMinorityCommunity",
+  "Ration Card": "results.ruleRationCard",
+  Occupation: "results.ruleOccupation",
+  Education: "results.ruleEducation",
+  Disability: "results.ruleDisability",
+  District: "results.ruleDistrict",
+};
+
+export function getLocalizedRuleName(ruleName: string, t: Translate) {
+  const key = ruleNameKeys[ruleName];
+  return key ? t(key) : ruleName;
+}
+
+export function getLocalizedEligibilityReason(reason: string, t: Translate) {
+  const ageMatch = reason.match(/^Age (\d+) is within the scheme limit$/);
+  if (ageMatch) return t("results.reasonAgeWithinLimit", { age: ageMatch[1] });
+
+  const reasonKeys: Record<string, TranslationKey> = {
+    "Gender matches the scheme requirement": "results.reasonGenderMatches",
+    "User income is within the scheme limit": "results.reasonIncomeWithinLimit",
+    "Caste matches the scheme requirement": "results.reasonCasteMatches",
+    "Minority community requirement is satisfied": "results.reasonMinoritySatisfied",
+    "Ration card matches the scheme requirement": "results.reasonRationCardMatches",
+    "Occupation matches the scheme requirement": "results.reasonOccupationMatches",
+    "Education matches the scheme requirement": "results.reasonEducationMatches",
+    "Disability requirement is satisfied": "results.reasonDisabilitySatisfied",
+    "District matches the scheme requirement": "results.reasonDistrictMatches",
+  };
+
+  return reasonKeys[reason] ? t(reasonKeys[reason]) : reason;
+}
 
 export type TfIdfRecommendation = {
   schemeId: string;
