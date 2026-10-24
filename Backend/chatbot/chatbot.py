@@ -141,10 +141,10 @@ def call_model(messages):
 def answer(payload):
     messages = payload.get("messages", [])
     user_messages = [
-        message for message in messages
-        if isinstance(message, dict)
-        and message.get("role") == "user"
-        and isinstance(message.get("content"), str)
+        message for message in messages 
+        if isinstance(message, dict) 
+        and message.get("role") == "user" 
+        and isinstance(message.get("content"), str) 
         and message["content"].strip()
     ]
     if not user_messages:
@@ -153,23 +153,28 @@ def answer(payload):
     query = user_messages[-1]["content"].strip()
     chunks = scheme_chunks(payload.get("schemes", []))
     relevant_chunks = retrieve(query, chunks)
+    
     context = "\n\n".join(
         f"[{chunk['name']} — {chunk['field']}] {chunk['text']} "
         f"(source: {chunk['source_url'] or 'not provided'})"
         for chunk in relevant_chunks
     ) or "No matching scheme information was found in the database."
 
+    # 1. Safely gather past history (up to 9 messages)
     history = [
         {"role": message["role"], "content": message["content"].strip()}
-        for message in messages[-10:]
+        for message in messages[-9:]  
         if isinstance(message, dict)
         and message.get("role") in {"user", "assistant"}
         and isinstance(message.get("content"), str)
         and message["content"].strip()
     ]
-    history[-1]["content"] = f"Scheme context:\n{context}\n\nUser question: {query}"
-    return call_model([{"role": "system", "content": SYSTEM_PROMPT}, *history])
 
+    # 2. Always append a clean, explicitly formatted user message at the end
+    final_user_content = f"Scheme context:\n{context}\n\nUser question: {query}"
+    history.append({"role": "user", "content": final_user_content})
+
+    return call_model([{"role": "system", "content": SYSTEM_PROMPT}, *history])
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
