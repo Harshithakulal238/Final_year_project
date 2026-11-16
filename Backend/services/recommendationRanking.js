@@ -1,5 +1,5 @@
 const DEFAULT_WEIGHTS = { structured: 0.60, semantic: 0.25, tfidf: 0.15 };
-const FIELD_WEIGHTS = { Income: 0.18, Age: 0.15, Occupation: 0.13, Caste: 0.12, Gender: 0.10, Education: 0.10, 'Ration Card': 0.08, Disability: 0.06, 'Minority Community': 0.04, District: 0.04 };
+const FIELD_WEIGHTS = { Income: 0.18, Age: 0.15, Occupation: 0.13, Caste: 0.12, Gender: 0.10, Education: 0.10, 'Ration Card': 0.08, Disability: 0.06, 'Minority Community': 0.04, 'Special Conditions': 0.10, District: 0.04 };
 
 function config(name, fallback) { const value = Number(process.env[`RECOMMENDATION_${name.toUpperCase()}_WEIGHT`]); return Number.isFinite(value) && value >= 0 ? value : fallback; }
 export function getHybridWeights() { return { structured: config('structured', DEFAULT_WEIGHTS.structured), semantic: config('semantic', DEFAULT_WEIGHTS.semantic), tfidf: config('tfidf', DEFAULT_WEIGHTS.tfidf) }; }

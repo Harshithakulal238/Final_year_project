@@ -17,12 +17,15 @@ export type Recommendation = {
   ruleScore: number;
   decisionTreeScore: number;
   finalScore: number;
+  eligibilityStatus: "eligible" | "needs_more_information";
+  needsMoreInformation: string[];
   ranking?: {
-    eligibility: number;
-    priority: number;
-    fieldMatch: number;
-    recency: number;
+    structuredMatch: number;
+    semanticSimilarity: number;
+    tfidfSimilarity: number;
+    weights: { structured: number; semantic: number; tfidf: number };
     finalPercent: number;
+    finalScore: number;
   };
   matchedRules: string[];
   failedRules: string[];
@@ -78,6 +81,7 @@ const ruleNameKeys: Record<string, TranslationKey> = {
   Occupation: "results.ruleOccupation",
   Education: "results.ruleEducation",
   Disability: "results.ruleDisability",
+  "Special Conditions": "results.ruleSpecialConditions",
   District: "results.ruleDistrict",
 };
 
@@ -99,6 +103,7 @@ export function getLocalizedEligibilityReason(reason: string, t: Translate) {
     "Occupation matches the scheme requirement": "results.reasonOccupationMatches",
     "Education matches the scheme requirement": "results.reasonEducationMatches",
     "Disability requirement is satisfied": "results.reasonDisabilitySatisfied",
+    "User special conditions match the scheme requirement": "results.reasonSpecialConditionsMatch",
     "District matches the scheme requirement": "results.reasonDistrictMatches",
   };
 

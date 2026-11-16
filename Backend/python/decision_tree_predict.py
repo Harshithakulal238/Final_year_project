@@ -100,13 +100,15 @@ def main():
         for scheme in schemes:
             score = score_scheme(user, scheme)
             results.append({
+                'schemeId': str(scheme.get('_id') or ''),
                 'source_url': scheme.get('source_url') or scheme.get('scheme_url') or scheme.get('schemeName') or scheme.get('scheme_name') or 'unknown',
                 'decisionTreeScore': score,
             })
 
         print(json.dumps(results))
-    except Exception:
-        print('[]')
+    except Exception as error:
+        print(f'Decision-tree scoring failed: {error}', file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == '__main__':

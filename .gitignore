@@ -22,3 +22,6 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+web_scraping_combined.zip
+web_scraping_combined/

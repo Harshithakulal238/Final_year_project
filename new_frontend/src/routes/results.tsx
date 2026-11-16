@@ -46,7 +46,7 @@ function ResultsPage() {
         <div>
           <p className="text-sm font-medium uppercase tracking-widest text-teal-700">Your matches</p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-slate-950">Recommended schemes</h1>
-          <p className="mt-2 text-sm text-slate-600">Your eligible schemes are ranked using the combined hybrid match score.</p>
+          <p className="mt-2 text-sm text-slate-600">{t("results.subtitle")}</p>
         </div>
         <div className="flex gap-2"><Link to="/profile"><Button variant="outline">Edit profile</Button></Link><Button onClick={() => void loadRecommendations()} disabled={loading}><RefreshCw className={`mr-2 h-4 w-4 ${loading ? "animate-spin" : ""}`} /> Refresh</Button></div>
       </div>
@@ -66,6 +66,23 @@ function ResultsPage() {
                   recommendation.schemeName,
                 )}
               </h2>
+              <Badge
+                className={recommendation.eligibilityStatus === "needs_more_information"
+                  ? "mt-2 border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-50"
+                  : "mt-2 bg-teal-50 text-teal-800 hover:bg-teal-50"}
+              >
+                {recommendation.eligibilityStatus === "needs_more_information"
+                  ? t("results.statusNeedsMoreInformation")
+                  : t("results.statusEligible")}
+              </Badge>
+              {recommendation.needsMoreInformation.length > 0 && (
+                <p className="mt-3 text-sm text-amber-900">
+                  <span className="font-semibold">{t("results.needsMoreInformationFields")} </span>
+                  {recommendation.needsMoreInformation
+                    .map((rule) => getLocalizedRuleName(rule, t))
+                    .join(", ")}
+                </p>
+              )}
               <p className="mt-4 text-sm font-semibold text-slate-800">
                 {t("results.verifiedMatchedFields")}
               </p>
@@ -112,6 +129,9 @@ function whyRecommended(
   explanation: string[],
   t: (key: import("@/lib/i18n").TranslationKey, vars?: Record<string, string | number>) => string,
 ) {
+  if (explanation.some((line) => line.startsWith("Why more information is needed?"))) {
+    return t("results.moreInformationReason");
+  }
   const reason = explanation.find((line) => line.startsWith("Why are you eligible?"));
   if (!reason) return "Your verified profile matches this scheme.";
   return reason

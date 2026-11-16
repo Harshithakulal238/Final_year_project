@@ -38,6 +38,7 @@ function schemeTokens(scheme) {
   add(tokens, 'occupation', scheme.applicant_type);
   add(tokens, 'education', scheme.education);
   add(tokens, 'ration', scheme.ration_card_type);
+  add(tokens, 'condition', scheme.special_conditions);
   add(tokens, 'district', scheme.district);
   if (scheme.disability_required === true) tokens.push('condition_disabled');
   if (scheme.minority_community_required === true) tokens.push('caste_minority');

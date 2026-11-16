@@ -8,10 +8,9 @@ import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 
 import { connectMongo, ObjectId } from './config/db.js';
+import { verifyBearerToken } from './services/authToken.js';
 
-import { evaluateSchemeEligibility } from './services/ruleEngine.js';
-
-import { rankEligibleScheme } from './services/recommendationRanking.js';
+import { rankRecommendationCandidates } from './services/recommendationPipeline.js';
 import { getTfIdfRecommendations } from './TF_IDF/tfidfRecommendation.js';
 
  
@@ -23,13 +22,107 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 5000;
+const jwtSecret = process.env.JWT_SECRET;
+const encryptionKey = process.env.ENCRYPTION_KEY;
 const chatbotScript = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   'chatbot',
   'chatbot.py',
 );
 
- 
+const recommendationSchemeProjection = {
+  _id: 1,
+  scheme_name: 1,
+  schemeName: 1,
+  name: 1,
+  age_min: 1,
+  age_max: 1,
+  gender: 1,
+  income_limit: 1,
+  caste_category: 1,
+  caste_restriction: 1,
+  applicant_type: 1,
+  occupation: 1,
+  education: 1,
+  district: 1,
+  ration_card_type: 1,
+  minority_community_required: 1,
+  disability_required: 1,
+  special_conditions: 1,
+  description: 1,
+  eligibility: 1,
+  benefits: 1,
+  objective: 1,
+  implementing_agency: 1,
+  categories: 1,
+  source_url: 1,
+  url: 1,
+  schemeUrl: 1,
+  translations: 1,
+};
+
+const schemeCatalogProjection = {
+  _id: 1,
+  scheme_name: 1,
+  schemeName: 1,
+  name: 1,
+  title: 1,
+  objective: 1,
+  description: 1,
+  overview: 1,
+  benefits: 1,
+  eligibility: 1,
+  eligibility_criteria: 1,
+  documents_required: 1,
+  required_documents: 1,
+  documents: 1,
+  application_process: 1,
+  how_to_apply: 1,
+  process: 1,
+  category: 1,
+  categories: 1,
+  scheme_category: 1,
+  scheme_type: 1,
+  ministry: 1,
+  implementing_agency: 1,
+  source_url: 1,
+  scheme_url: 1,
+  schemeUrl: 1,
+  url: 1,
+  translations: 1,
+};
+
+const chatRateLimitBuckets = new Map();
+let chatRateLimitRequests = 0;
+
+function limitChatRequests(req, res, next) {
+  const now = Date.now();
+  const key = req.ip || req.socket.remoteAddress || 'unknown';
+  let bucket = chatRateLimitBuckets.get(key);
+  if (!bucket || now - bucket.startedAt >= 60_000) {
+    bucket = { startedAt: now, count: 0 };
+    chatRateLimitBuckets.set(key, bucket);
+  }
+  bucket.count += 1;
+  chatRateLimitRequests += 1;
+  if (chatRateLimitRequests % 256 === 0) {
+    for (const [client, entry] of chatRateLimitBuckets) {
+      if (now - entry.startedAt >= 60_000) chatRateLimitBuckets.delete(client);
+    }
+  }
+  if (bucket.count > 10) {
+    res.setHeader('Retry-After', String(Math.ceil((60_000 - (now - bucket.startedAt)) / 1000)));
+    return res.status(429).json({ message: 'Too many chat requests. Please try again later.' });
+  }
+  return next();
+}
+
+if (!jwtSecret || jwtSecret.length < 32) {
+  throw new Error('JWT_SECRET must be configured with at least 32 characters in Backend/.env');
+}
+if (!encryptionKey || encryptionKey.length < 32) {
+  throw new Error('ENCRYPTION_KEY must be configured with at least 32 characters in Backend/.env');
+}
 
 app.use(express.json());
 
@@ -99,21 +192,47 @@ function ageFromDob(dob) {
 
 function decryptStoredProfile(payload) {
   if (!payload || typeof payload !== 'string') return null;
-  try {
-    const [ivPart, encryptedData] = payload.split(':');
-    if (!ivPart || !encryptedData) return null;
-    const key = crypto.createHash('sha256').update(String(process.env.ENCRYPTION_KEY || 'change_this_to_a_32_byte_key')).digest();
-    const decipher = crypto.createDecipheriv('aes-256-cbc', key, Buffer.from(ivPart, 'base64'));
-    let decrypted = decipher.update(encryptedData, 'base64', 'utf8');
+  const key = crypto.createHash('sha256').update(encryptionKey).digest();
+  const parts = payload.split(':');
+  let decipher;
+  let decrypted;
+
+  if (parts.length === 4 && parts[0] === 'v2') {
+    const [, ivPart, tagPart, encryptedData] = parts;
+    decipher = crypto.createDecipheriv('aes-256-gcm', key, Buffer.from(ivPart, 'base64'));
+    decipher.setAuthTag(Buffer.from(tagPart, 'base64'));
+    decrypted = decipher.update(encryptedData, 'base64', 'utf8');
     decrypted += decipher.final('utf8');
-    const profile = JSON.parse(decrypted);
-    return profile && typeof profile === 'object' ? profile : null;
-  } catch {
+  } else if (parts.length === 2 && parts.every(Boolean)) {
+    const [ivPart, encryptedData] = parts;
+    decipher = crypto.createDecipheriv('aes-256-cbc', key, Buffer.from(ivPart, 'base64'));
+    decrypted = decipher.update(encryptedData, 'base64', 'utf8');
+    decrypted += decipher.final('utf8');
+  } else {
     return null;
   }
+
+  const profile = JSON.parse(decrypted);
+  return profile && typeof profile === 'object' ? profile : null;
 }
 
- 
+function requireUserToken(req, res, next) {
+  const payload = verifyBearerToken(req.headers.authorization, jwtSecret);
+  if (!payload) return res.status(401).json({ message: 'Valid bearer token is required' });
+  req.authUserId = payload.userId;
+  return next();
+}
+
+function requireOwnUserId(req, res, next) {
+  const { userId } = req.params;
+  if (!ObjectId.isValid(userId) || !ObjectId.isValid(req.authUserId)) {
+    return res.status(400).json({ message: 'Invalid user ID' });
+  }
+  if (!new ObjectId(userId).equals(new ObjectId(req.authUserId))) {
+    return res.status(403).json({ message: 'You may only request recommendations for your own account' });
+  }
+  return next();
+}
 
 function normalizeUser(user) {
 
@@ -132,7 +251,7 @@ function normalizeUser(user) {
 
   const education = source.education || source.qualification;
 
-  const conditions = source.conditions || source.specialConditions || [];
+  const conditions = source.conditions ?? source.specialConditions;
 
   const district = source.location?.district || source.district;
 
@@ -192,7 +311,7 @@ function normalizeUser(user) {
 
  
 
-function buildRecommendationRecord(user, scheme, ruleEvaluation) {
+function buildRecommendationRecord(scheme, ruleEvaluation, ranking, decisionTreeScore) {
 
   const matchedRules = ruleEvaluation.ruleDetails
     .filter((rule) => rule.applicable && rule.eligible)
@@ -208,14 +327,11 @@ function buildRecommendationRecord(user, scheme, ruleEvaluation) {
     .filter((rule) => rule.applicable && rule.eligible)
     .flatMap((rule) => rule.explanation || [])
     .slice(0, 4);
-  const explanation = [
-    `What is this scheme? ${purpose}`,
-    `Why are you eligible? ${matchedExplanations.join('; ') || 'Your recorded profile matches the scheme fields.'}`,
-  ];
-
- 
-
-  const ranking = rankEligibleScheme(user, scheme, ruleEvaluation);
+  const missingInformation = ruleEvaluation.needsMoreInformation;
+  const recommendationReason = ruleEvaluation.status === 'needs_more_information'
+    ? `Why more information is needed? Please provide: ${missingInformation.join(', ')}.`
+    : `Why are you eligible? ${matchedExplanations.join('; ') || 'Your recorded profile matches the scheme fields.'}`;
+  const explanation = [`What is this scheme? ${purpose}`, recommendationReason];
 
  
 
@@ -227,9 +343,9 @@ function buildRecommendationRecord(user, scheme, ruleEvaluation) {
     description: purpose || '',
     translations: { kn: scheme.translations?.kn || {} },
     ruleScore: Number(ruleEvaluation.ruleScore || 0),
-
-    decisionTreeScore: null,
-
+    eligibilityStatus: ruleEvaluation.status,
+    needsMoreInformation: missingInformation,
+    decisionTreeScore,
     finalScore: ranking.finalScore,
 
     ranking,
@@ -358,7 +474,7 @@ function runChatbot(payload) {
   });
 }
 
-app.post('/api/chat', async (req, res) => {
+app.post('/api/chat', limitChatRequests, async (req, res) => {
   const messages = req.body?.messages;
   if (!Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ message: 'At least one chat message is required' });
@@ -385,7 +501,7 @@ app.post('/api/chat', async (req, res) => {
       return res.status(404).json({ message: 'No scheme collection found in the database' });
     }
 
-    const schemeRecords = await schemeCollection.find({}).toArray();
+    const schemeRecords = await schemeCollection.find({}, { projection: schemeCatalogProjection }).toArray();
     const schemes = schemeRecords.map((scheme) => ({
       scheme_name: scheme.scheme_name || scheme.schemeName || scheme.title || scheme.name,
       source_url: scheme.source_url || scheme.scheme_url || scheme.schemeUrl || scheme.url,
@@ -441,7 +557,7 @@ app.get('/api/schemes', async (_req, res) => {
       return res.status(404).json({ message: 'No scheme collection found in the database' });
     }
 
-    const schemes = await schemeCollection.find({}).toArray();
+    const schemes = await schemeCollection.find({}, { projection: schemeCatalogProjection }).toArray();
     return res.json({
       schemes: schemes.map((scheme) => ({
         id: String(scheme._id),
@@ -463,7 +579,7 @@ app.get('/api/schemes', async (_req, res) => {
   }
 });
 
-app.get('/api/recommend/:userId', async (req, res) => {
+app.get('/api/recommend/:userId', requireUserToken, requireOwnUserId, async (req, res) => {
 
   const { userId } = req.params;
 
@@ -507,7 +623,7 @@ app.get('/api/recommend/:userId', async (req, res) => {
 
  
 
-    const schemes = await schemeCollection.find({}).toArray();
+    const schemes = await schemeCollection.find({}, { projection: recommendationSchemeProjection }).toArray();
 
     console.log("==================================");
 
@@ -519,62 +635,12 @@ app.get('/api/recommend/:userId', async (req, res) => {
 
     const normalizedUser = normalizeUser(user);
 
-    console.log("Normalized User:");
+    const rankedCandidates = await rankRecommendationCandidates(normalizedUser, schemes);
+    console.log("Eligible or information-needed schemes:", rankedCandidates.length);
 
-    console.log(normalizedUser);
-
-    const eligibleSchemes = [];
-
-    for (const scheme of schemes) {
-
- 
-
-      const ruleEvaluation = evaluateSchemeEligibility(normalizedUser, scheme);
-
- 
-
-      console.log(
-
-        "Scheme:",
-
-        scheme.scheme_name,
-
-        "| Eligible:",
-
-        ruleEvaluation.eligible,
-
-        "| Failed:",
-
-        ruleEvaluation.failedRules
-
-      );
-
- 
-
-      if (ruleEvaluation.eligible) {
-
-        eligibleSchemes.push({
-
-            ...scheme,
-
-            ruleEvaluation,
-
-        });
-
-      }
-
-    }
-
-    console.log("Eligible schemes:", eligibleSchemes.length);
-
- 
-
-    if (!eligibleSchemes.length) {
-
+    if (!rankedCandidates.length) {
       return res.json({
-
         user: { name: normalizedUser.name || normalizedUser.username || 'User' },
-
         recommendedSchemes: [],
 
       });
@@ -583,28 +649,13 @@ app.get('/api/recommend/:userId', async (req, res) => {
 
  
 
-    const recommendations = eligibleSchemes
-
-      .map((scheme) => {
-
-        const finalRecommendation = buildRecommendationRecord(
-
-          normalizedUser,
-
-          scheme,
-
-          scheme.ruleEvaluation
-
-        );
-
- 
-
-        return finalRecommendation;
-
-      })
-
-      .filter((item) => item && item.finalScore > 0)
-
+    const recommendations = rankedCandidates
+      .map(({ scheme, ruleEvaluation, ranking, decisionTreeScore }) => buildRecommendationRecord(
+        scheme,
+        ruleEvaluation,
+        ranking,
+        decisionTreeScore,
+      ))
       .sort((a, b) => (b.finalScore || 0) - (a.finalScore || 0));
 
  
@@ -627,7 +678,7 @@ app.get('/api/recommend/:userId', async (req, res) => {
 
 });
 
-app.get('/api/recommend/:userId/tfidf', async (req, res) => {
+app.get('/api/recommend/:userId/tfidf', requireUserToken, requireOwnUserId, async (req, res) => {
   const { userId } = req.params;
   const topK = Math.min(Math.max(toNumber(req.query.topK, 10), 1), 50);
 
@@ -642,7 +693,7 @@ app.get('/api/recommend/:userId/tfidf', async (req, res) => {
     const user = await userCollection.findOne({ _id: new ObjectId(userId) });
     if (!user) return res.status(404).json({ message: 'User not found' });
 
-    const schemes = await schemeCollection.find({}).toArray();
+    const schemes = await schemeCollection.find({}, { projection: recommendationSchemeProjection }).toArray();
     const result = getTfIdfRecommendations(normalizeUser(user), schemes, topK);
 
     return res.json({
