@@ -174,6 +174,8 @@ const allowedOrigins = (process.env.FRONTEND_ORIGIN || 'http://localhost:3000,ht
   .filter(Boolean);
 app.use(cors({
   origin(origin, callback) {
+    console.log('Incoming Origin:',origin);
+    console.log('Allowed Origins:',allowedOrigins);
     if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
     return callback(new Error('Origin is not allowed by CORS'));
   },
